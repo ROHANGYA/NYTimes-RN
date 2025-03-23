@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   },
   ofInterestSectionScrollView: {
     padding: 20,
+    marginBottom: 40,
     gap: 10,
     width: '100%',
     height: '100%',

@@ -46,12 +46,17 @@ function NewsCard({newsItem, isExpanded}: NewsProp): React.JSX.Element {
           resizeMode="cover"
           style={styles.thumbImage}
         />
-        <AppText
-          style={styles.newsTitle}
-          numberOfLines={3}
-          ellipsizeMode="tail">
-          {newsItem.title}
-        </AppText>
+        <View style={styles.newsCol}>
+          <AppText
+            style={styles.newsTitle}
+            numberOfLines={3}
+            ellipsizeMode="tail">
+            {newsItem.title}
+          </AppText>
+          <AppText style={styles.newsDate} isSecondaryFont={true}>
+            {newsItem.date}
+          </AppText>
+        </View>
       </View>
     );
   }
@@ -90,7 +95,7 @@ const styles = StyleSheet.create({
   newsTitle: {
     color: Colors.black,
     textAlignVertical: 'top',
-    width: '68%',
+    width: '100%',
     paddingLeft: 16,
   },
   newsTitleExpanded: {
@@ -98,6 +103,16 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlignVertical: 'bottom',
     height: '100%',
+  },
+  newsCol: {
+    flexDirection: 'column',
+    width: '68%',
+  },
+  newsDate: {
+    fontSize: 12,
+    paddingLeft: 16,
+    paddingVertical: 10,
+    color: '#777777',
   },
 });
 
