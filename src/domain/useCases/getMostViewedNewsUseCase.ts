@@ -1,7 +1,7 @@
 import {NewsItem} from '../entities/news';
 import {NewsRepository} from '../repository/newsRepository';
 
-class GetMostViweedNewsUseCase {
+class GetMostViewedNewsUseCase {
   constructor(private repository: NewsRepository) {}
 
   call(): Promise<NewsItem[]> {
@@ -9,4 +9,4 @@ class GetMostViweedNewsUseCase {
   }
 }
 
-export default GetMostViweedNewsUseCase;
+export default GetMostViewedNewsUseCase;
