@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NewsItem} from '../../domain/entities/news';
+import LinearGradient from 'react-native-linear-gradient';
+import AppText from './appText';
 
 type NewsProp = PropsWithChildren<{
   newsItem: NewsItem;
@@ -24,7 +26,15 @@ function NewsCard({newsItem, isExpanded}: NewsProp): React.JSX.Element {
           source={newsImage}
           resizeMode="cover"
           style={styles.backgroundImage}>
-          <Text style={styles.newsTitleExpanded}>{newsItem.title}</Text>
+          <LinearGradient
+            colors={[
+              'rgba(0, 0, 0, 0.0)',
+              'rgba(0, 0, 0, 0.0)',
+              'rgba(0, 0, 0, 0.5)',
+              '#000000',
+            ]}>
+            <AppText style={styles.newsTitleExpanded}>{newsItem.title}</AppText>
+          </LinearGradient>
         </ImageBackground>
       </View>
     );
@@ -36,9 +46,12 @@ function NewsCard({newsItem, isExpanded}: NewsProp): React.JSX.Element {
           resizeMode="cover"
           style={styles.thumbImage}
         />
-        <Text style={styles.newsTitle} numberOfLines={3} ellipsizeMode="tail">
+        <AppText
+          style={styles.newsTitle}
+          numberOfLines={3}
+          ellipsizeMode="tail">
           {newsItem.title}
-        </Text>
+        </AppText>
       </View>
     );
   }

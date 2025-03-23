@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import NewsCard from '../../components/newsCard';
 import {fetchMostViewedNewsList} from '../../state/home/homeSlice';
 import {AppDispatch, RootState} from '../../state/store';
+import AppText from '../../components/appText';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
@@ -31,10 +32,12 @@ function HomeScreen(): React.JSX.Element {
 
   return (
     <View>
-      <Text style={styles.appHeaderLabel}>New York Times</Text>
+      <AppText style={styles.appHeaderLabel}>New York Times</AppText>
       <ScrollView>
         <View style={styles.mostViewedSection}>
-          <Text style={styles.sectionLabel}>Most Viewed</Text>
+          <AppText style={styles.sectionLabel} isSecondaryFont={true}>
+            Most Viewed
+          </AppText>
           <ScrollView
             horizontal={true}
             style={styles.mostViewedSectionScrollView}
@@ -51,7 +54,9 @@ function HomeScreen(): React.JSX.Element {
           </ScrollView>
         </View>
         <View style={styles.ofInterestSection}>
-          <Text style={styles.sectionLabel}>Of Interest</Text>
+          <AppText style={styles.sectionLabel} isSecondaryFont={true}>
+            Of Interest
+          </AppText>
           <ScrollView
             horizontal={false}
             style={styles.ofInterestSectionScrollView}
@@ -81,7 +86,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   mostViewedSection: {
-    marginTop: 30,
+    marginTop: 10,
   },
   mostViewedSectionScrollView: {
     padding: 20,
@@ -102,6 +107,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   sectionLabel: {
+    fontSize: 16,
     paddingLeft: 20,
   },
 });
