@@ -30,23 +30,79 @@ function HomeScreen(): React.JSX.Element {
   console.info(homeState.newsList);
 
   return (
-    <View style={styles.mostViewedSection}>
-      <ScrollView horizontal={false} style={styles.scrollView}>
-        {homeState.newsList.map((newsItem, index) => {
-          return <NewsCard key={index} newsItem={newsItem} />;
-        })}
+    <View>
+      <Text style={styles.appHeaderLabel}>New York Times</Text>
+      <ScrollView>
+        <View style={styles.mostViewedSection}>
+          <Text style={styles.sectionLabel}>Most Viewed</Text>
+          <ScrollView
+            horizontal={true}
+            style={styles.mostViewedSectionScrollView}
+            contentContainerStyle={styles.scrollViewItem}>
+            {homeState.newsList.map((newsItem, index) => {
+              return (
+                <NewsCard
+                  key={`1${index}`}
+                  newsItem={newsItem}
+                  isExpanded={true}
+                />
+              );
+            })}
+          </ScrollView>
+        </View>
+        <View style={styles.ofInterestSection}>
+          <Text style={styles.sectionLabel}>Of Interest</Text>
+          <ScrollView
+            horizontal={false}
+            style={styles.ofInterestSectionScrollView}
+            contentContainerStyle={styles.scrollViewItem}>
+            {homeState.newsList.map((newsItem, index) => {
+              return (
+                <NewsCard
+                  key={`2${index}`}
+                  newsItem={newsItem}
+                  isExpanded={false}
+                />
+              );
+            })}
+          </ScrollView>
+        </View>
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  appHeaderLabel: {
+    fontSize: 20,
+    textAlign: 'center',
+    width: '100%',
+    fontWeight: 'bold',
+    marginTop: 30,
+  },
   mostViewedSection: {
+    marginTop: 30,
+  },
+  mostViewedSectionScrollView: {
+    padding: 20,
+    gap: 10,
+    width: '100%',
+  },
+  scrollViewItem: {
+    gap: 18,
+  },
+  ofInterestSection: {
     marginTop: 20,
     marginBottom: 30,
   },
-  scrollView: {
+  ofInterestSectionScrollView: {
     padding: 20,
+    gap: 10,
+    width: '100%',
+    height: '100%',
+  },
+  sectionLabel: {
+    paddingLeft: 20,
   },
 });
 
