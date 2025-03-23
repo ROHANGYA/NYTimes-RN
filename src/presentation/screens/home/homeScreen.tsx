@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '100%',
     fontWeight: 'bold',
-    marginTop: 30,
+    marginVertical: 15,
   },
   mostViewedSection: {
     marginTop: 30,
