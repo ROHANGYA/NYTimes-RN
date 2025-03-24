@@ -2,9 +2,11 @@ import {PropsWithChildren, PropsWithoutRef} from 'react';
 import {
   Image,
   ImageBackground,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  Touchable,
   View,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -15,28 +17,37 @@ import AppText from './appText';
 type NewsProp = PropsWithChildren<{
   newsItem: NewsItem;
   isExpanded: boolean;
+  onClick: () => void;
 }>;
 
-function NewsCard({newsItem, isExpanded}: NewsProp): React.JSX.Element {
+function NewsCard({
+  newsItem,
+  isExpanded,
+  onClick,
+}: NewsProp): React.JSX.Element {
   const newsImage = {uri: newsItem.imageUrl};
   if (isExpanded) {
     return (
-      <View style={styles.newsCardExpanded}>
-        <ImageBackground
-          source={newsImage}
-          resizeMode="cover"
-          style={styles.backgroundImage}>
-          <LinearGradient
-            colors={[
-              'rgba(0, 0, 0, 0.0)',
-              'rgba(0, 0, 0, 0.0)',
-              'rgba(0, 0, 0, 0.5)',
-              '#000000',
-            ]}>
-            <AppText style={styles.newsTitleExpanded}>{newsItem.title}</AppText>
-          </LinearGradient>
-        </ImageBackground>
-      </View>
+      <Pressable onPress={onClick}>
+        <View style={styles.newsCardExpanded}>
+          <ImageBackground
+            source={newsImage}
+            resizeMode="cover"
+            style={styles.backgroundImage}>
+            <LinearGradient
+              colors={[
+                'rgba(0, 0, 0, 0.0)',
+                'rgba(0, 0, 0, 0.0)',
+                'rgba(0, 0, 0, 0.5)',
+                '#000000',
+              ]}>
+              <AppText style={styles.newsTitleExpanded}>
+                {newsItem.title}
+              </AppText>
+            </LinearGradient>
+          </ImageBackground>
+        </View>
+      </Pressable>
     );
   } else {
     return (

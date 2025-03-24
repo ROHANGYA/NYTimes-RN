@@ -11,10 +11,14 @@ import NewsCard from '../../components/newsCard';
 import {fetchMostViewedNewsList} from '../../state/home/homeSlice';
 import {AppDispatch, RootState} from '../../state/store';
 import AppText from '../../components/appText';
+import {StackActions, useNavigation} from '@react-navigation/native';
+import {Routes} from '../../navigation/routes';
+import {Header} from '@react-navigation/elements';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
   const dispatch = useDispatch<AppDispatch>();
+  const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(fetchMostViewedNewsList());
@@ -32,7 +36,6 @@ function HomeScreen(): React.JSX.Element {
 
   return (
     <View>
-      <AppText style={styles.appHeaderLabel}>New York Times</AppText>
       <ScrollView>
         <View style={styles.mostViewedSection}>
           <AppText style={styles.sectionLabel} isSecondaryFont={true}>
@@ -48,6 +51,9 @@ function HomeScreen(): React.JSX.Element {
                   key={`1${index}`}
                   newsItem={newsItem}
                   isExpanded={true}
+                  onClick={() =>
+                    navigation.dispatch(StackActions.push(Routes.NEWS_DETAILS))
+                  }
                 />
               );
             })}
@@ -67,6 +73,9 @@ function HomeScreen(): React.JSX.Element {
                   key={`2${index}`}
                   newsItem={newsItem}
                   isExpanded={false}
+                  onClick={() =>
+                    navigation.dispatch(StackActions.push(Routes.NEWS_DETAILS))
+                  }
                 />
               );
             })}
@@ -78,15 +87,8 @@ function HomeScreen(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  appHeaderLabel: {
-    fontSize: 20,
-    textAlign: 'center',
-    width: '100%',
-    fontWeight: 'bold',
-    marginVertical: 15,
-  },
   mostViewedSection: {
-    marginTop: 10,
+    marginTop: 14,
   },
   mostViewedSectionScrollView: {
     padding: 20,
