@@ -1,4 +1,3 @@
-import {Header, HeaderTitle} from '@react-navigation/elements';
 import {StyleSheet, View} from 'react-native';
 
 function NewsDetailsScreen(): React.JSX.Element {

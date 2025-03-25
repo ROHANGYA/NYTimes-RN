@@ -1,18 +1,15 @@
-import {PropsWithChildren, PropsWithoutRef} from 'react';
+import {PropsWithChildren} from 'react';
 import {
   Image,
   ImageBackground,
-  Pressable,
-  ScrollView,
   StyleSheet,
-  Text,
-  Touchable,
+  TouchableHighlight,
   View,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NewsItem} from '../../domain/entities/news';
 import LinearGradient from 'react-native-linear-gradient';
 import AppText from './appText';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 type NewsProp = PropsWithChildren<{
   newsItem: NewsItem;
@@ -26,15 +23,17 @@ function NewsCard({
   onClick,
 }: NewsProp): React.JSX.Element {
   const newsImage = {uri: newsItem.imageUrl};
-  if (isExpanded) {
-    return (
-      <Pressable onPress={onClick}>
+
+  return (
+    <TouchableHighlight onPress={onClick} style={styles.clickContainer}>
+      {isExpanded ? (
         <View style={styles.newsCardExpanded}>
           <ImageBackground
             source={newsImage}
             resizeMode="cover"
             style={styles.backgroundImage}>
             <LinearGradient
+              key={2}
               colors={[
                 'rgba(0, 0, 0, 0.0)',
                 'rgba(0, 0, 0, 0.0)',
@@ -47,33 +46,34 @@ function NewsCard({
             </LinearGradient>
           </ImageBackground>
         </View>
-      </Pressable>
-    );
-  } else {
-    return (
-      <View style={styles.newsCard}>
-        <Image
-          source={newsImage}
-          resizeMode="cover"
-          style={styles.thumbImage}
-        />
-        <View style={styles.newsCol}>
-          <AppText
-            style={styles.newsTitle}
-            numberOfLines={3}
-            ellipsizeMode="tail">
-            {newsItem.title}
-          </AppText>
-          <AppText style={styles.newsDate} isSecondaryFont={true}>
-            {newsItem.date}
-          </AppText>
+      ) : (
+        <View style={styles.newsCard}>
+          <Image
+            source={newsImage}
+            resizeMode="cover"
+            style={styles.thumbImage}
+          />
+          <View style={styles.newsCol}>
+            <AppText
+              style={styles.newsTitle}
+              numberOfLines={3}
+              ellipsizeMode="tail">
+              {newsItem.title}
+            </AppText>
+            <AppText style={styles.newsDate} isSecondaryFont={true}>
+              {newsItem.date}
+            </AppText>
+          </View>
         </View>
-      </View>
-    );
-  }
+      )}
+    </TouchableHighlight>
+  );
 }
 
 const styles = StyleSheet.create({
+  clickContainer: {
+    borderRadius: 8,
+  },
   newsCard: {
     flexDirection: 'row',
     backgroundColor: Colors.white,
