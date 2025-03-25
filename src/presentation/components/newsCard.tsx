@@ -76,7 +76,7 @@ function NewsCard({
 const styles = StyleSheet.create({
   newsCard: {
     flexDirection: 'row',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: Colors.white,
     borderRadius: 8,
     overflow: 'hidden',
     elevation: 0,
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   newsCardExpanded: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: Colors.white,
     borderRadius: 8,
     overflow: 'hidden',
     elevation: 4,

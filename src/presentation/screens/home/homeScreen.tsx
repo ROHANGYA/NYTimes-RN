@@ -14,6 +14,8 @@ import AppText from '../../components/appText';
 import {StackActions, useNavigation} from '@react-navigation/native';
 import {Routes} from '../../navigation/routes';
 import {Header} from '@react-navigation/elements';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import GenericLoadingScreen from '../../components/genericLoadingScreen';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
@@ -25,7 +27,7 @@ function HomeScreen(): React.JSX.Element {
   }, [dispatch]);
 
   if (homeState.isLoading) {
-    return homeState.isLoading && <ActivityIndicator />;
+    return homeState.isLoading && <GenericLoadingScreen />;
   }
 
   if (homeState.error) {
@@ -35,7 +37,7 @@ function HomeScreen(): React.JSX.Element {
   console.info(homeState.newsList);
 
   return (
-    <View>
+    <View style={styles.mainPage}>
       <ScrollView>
         <View style={styles.mostViewedSection}>
           <AppText style={styles.sectionLabel} isSecondaryFont={true}>
@@ -87,6 +89,9 @@ function HomeScreen(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  mainPage: {
+    backgroundColor: Colors.white,
+  },
   mostViewedSection: {
     marginTop: 14,
   },
@@ -110,8 +115,9 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   sectionLabel: {
-    fontSize: 16,
+    fontSize: 18,
     paddingLeft: 20,
+    color: Colors.black,
   },
 });
 
