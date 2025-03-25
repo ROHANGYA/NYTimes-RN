@@ -1,14 +1,14 @@
 import {NewsModel} from '../../models/newsModel';
 import {NewsResponseModel} from '../../models/newsResponseModel';
 import apiClient from './apiClient';
-import {endpoints} from './apiEnspoints';
+import {endpoints} from './apiEndpoints';
 
 class NewsApi {
   async fetchMostViewedNews(): Promise<NewsModel[]> {
-    // const response = await apiClient.get<NewsResponseModel>(
-    //   endpoints.MostViewedNews,
-    // );
-    await new Promise(resolver => setTimeout(resolver, 3000));
+    const response = await apiClient.get<NewsResponseModel>(
+      endpoints.MostViewedNews,
+    );
+    //await new Promise(resolver => setTimeout(resolver, 3000));
     return testREsponse.results;
   }
 }

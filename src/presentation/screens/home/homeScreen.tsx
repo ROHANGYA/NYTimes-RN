@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import NewsCard from '../../components/newsCard';
 import {fetchMostViewedNewsList} from '../../state/home/homeSlice';
@@ -9,6 +9,7 @@ import {StackActions, useNavigation} from '@react-navigation/native';
 import {Routes} from '../../navigation/routes';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import GenericLoadingScreen from '../../components/genericLoadingScreen';
+import GenericErrorScreen from '../../components/genericErrorScreen';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
@@ -24,7 +25,7 @@ function HomeScreen(): React.JSX.Element {
   }
 
   if (homeState.error) {
-    return <Text>ERTROROROROROR</Text>;
+    return <GenericErrorScreen />;
   }
 
   console.info(homeState.newsList);

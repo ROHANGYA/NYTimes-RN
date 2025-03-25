@@ -43,7 +43,6 @@ export const fetchMostViewedNewsList = createAsyncThunk<NewsItem[]>(
     try {
       return await di.getMostViweedNewsUseCase.call();
     } catch (err) {
-      console.error('err', err);
       return thunk.rejectWithValue('test');
     }
   },
