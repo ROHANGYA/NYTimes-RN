@@ -1,16 +1,17 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {
-  createStaticNavigation,
-  NavigationContainer,
-} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {Routes} from './routes';
 import NewsDetailsScreen from '../screens/details/newsDetailsScreen';
 import HomeScreen from '../screens/home/homeScreen';
-import {View} from 'react-native';
-import {Text} from '@react-navigation/elements';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NewsItem} from '../../domain/entities/news';
+
+export type RootStackParamList = {
+  Home: undefined;
+  NewsDetails: NewsItem | undefined;
+};
 
 export default function AppNavigation(): React.JSX.Element {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={Routes.HOME}>

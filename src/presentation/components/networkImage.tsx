@@ -6,7 +6,7 @@ type NetworkImageProps = PropsWithChildren<{
   fallbackLocalImage: string;
 }>;
 
-function NetworkImageDefault({
+function NetworkImage({
   imageUrl,
   fallbackLocalImage,
 }: NetworkImageProps): React.JSX.Element {
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NetworkImageDefault;
+export default NetworkImage;

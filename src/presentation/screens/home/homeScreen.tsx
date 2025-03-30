@@ -11,6 +11,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import GenericLoadingScreen from '../../components/genericLoadingScreen';
 import GenericErrorScreen from '../../components/genericErrorScreen';
 import FailureEntity from '../../../domain/entities/failureEntity';
+import {NewsItem} from '../../../domain/entities/news';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
@@ -20,6 +21,10 @@ function HomeScreen(): React.JSX.Element {
   useEffect(() => {
     dispatch(fetchMostViewedNewsList());
   }, [dispatch]);
+
+  function onNewsClick(newsItem: NewsItem) {
+    navigation.dispatch(StackActions.push(Routes.NEWS_DETAILS, newsItem));
+  }
 
   if (homeState.isLoading) {
     return homeState.isLoading && <GenericLoadingScreen />;
@@ -62,9 +67,7 @@ function HomeScreen(): React.JSX.Element {
                   key={`1${index}`}
                   newsItem={newsItem}
                   isExpanded={true}
-                  onClick={() =>
-                    navigation.dispatch(StackActions.push(Routes.NEWS_DETAILS))
-                  }
+                  onClick={() => onNewsClick(newsItem)}
                 />
               );
             })}
@@ -85,9 +88,7 @@ function HomeScreen(): React.JSX.Element {
                   key={`2${index}`}
                   newsItem={newsItem}
                   isExpanded={false}
-                  onClick={() =>
-                    navigation.dispatch(StackActions.push(Routes.NEWS_DETAILS))
-                  }
+                  onClick={() => onNewsClick(newsItem)}
                 />
               );
             })}
