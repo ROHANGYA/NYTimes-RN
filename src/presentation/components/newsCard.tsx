@@ -1,6 +1,5 @@
 import {PropsWithChildren} from 'react';
 import {
-  Image,
   ImageBackground,
   StyleSheet,
   TouchableHighlight,
@@ -10,6 +9,8 @@ import {NewsItem} from '../../domain/entities/news';
 import LinearGradient from 'react-native-linear-gradient';
 import AppText from './appText';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import AssetUtil from '../../utils/assetUtils';
+import NetworkImageDefault from './networkImage';
 
 type NewsProp = PropsWithChildren<{
   newsItem: NewsItem;
@@ -48,10 +49,15 @@ function NewsCard({
         </View>
       ) : (
         <View style={styles.newsCard}>
-          <Image
+          {/* <Image
             source={newsImage}
+            defaultSource={errorFallback}
             resizeMode="cover"
             style={styles.thumbImage}
+          /> */}
+          <NetworkImageDefault
+            imageUrl={newsImage.uri}
+            fallbackLocalImage={AssetUtil.warning}
           />
           <View style={styles.newsCol}>
             <AppText

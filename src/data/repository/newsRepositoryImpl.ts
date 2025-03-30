@@ -1,3 +1,4 @@
+import FailureEntity from '../../domain/entities/failureEntity';
 import {NewsItem} from '../../domain/entities/news';
 import {NewsRepository} from '../../domain/repository/newsRepository';
 import NewsApi from '../dataSources/remote/newsApi';
@@ -11,9 +12,10 @@ class NewsRepositoryImpl implements NewsRepository {
       const result = await this.api.fetchMostViewedNews();
       return result.map(newsModel => mapToDomain(newsModel));
     } catch (err) {
-      throw err;
+      throw new FailureEntity(err as string);
     }
   }
+
   getNewsById(id: string): Promise<NewsItem> {
     throw new Error('Method not implemented.');
   }

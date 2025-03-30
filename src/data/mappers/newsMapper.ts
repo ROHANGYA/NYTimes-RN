@@ -6,7 +6,8 @@ export function mapToDomain(model: NewsModel): NewsItem {
     id: model.id,
     title: model.title,
     description: model.abstract,
-    date: model.published_date.toDateString(),
-    imageUrl: model.media[0]['media-metadata'][2].url,
+    date: model.published_date.toLocaleString(),
+    imageUrl:
+      model.media.length > 0 ? model.media[0]['media-metadata'][2].url : '',
   };
 }

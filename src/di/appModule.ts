@@ -1,6 +1,6 @@
+import apiClient from '../data/dataSources/remote/apiClient';
 import NewsApi from '../data/dataSources/remote/newsApi';
 import NewsRepositoryImpl from '../data/repository/newsRepositoryImpl';
-import {NewsRepository} from '../domain/repository/newsRepository';
 import GetMostViweedNewsUseCase from '../domain/useCases/getMostViewedNewsUseCase';
 
 class AppModule {
@@ -10,7 +10,7 @@ class AppModule {
 
   constructor() {
     // Initialize data sources
-    this.newsApi = new NewsApi();
+    this.newsApi = new NewsApi(apiClient);
 
     // Initialize repositories
     this.newsRepository = new NewsRepositoryImpl(this.newsApi);

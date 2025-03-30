@@ -1,11 +1,20 @@
 import {Image, StyleSheet, View} from 'react-native';
 import FailureEntity from '../../domain/entities/failureEntity';
 import AppText from './appText';
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import AssetUtil from '../../utils/assetUtils';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Button} from '@react-navigation/elements';
 
-function GenericErrorScreen(failure: FailureEntity): React.JSX.Element {
+type genericErrorScreenProps = PropsWithChildren<{
+  failure: FailureEntity;
+  OnRetryClick: () => void;
+}>;
+
+function GenericErrorScreen({
+  failure,
+  OnRetryClick,
+}: genericErrorScreenProps): React.JSX.Element {
   return (
     <View style={styles.container}>
       <Image source={AssetUtil.warning} style={styles.icon} />
@@ -13,8 +22,11 @@ function GenericErrorScreen(failure: FailureEntity): React.JSX.Element {
         Something Went Wrong !
       </AppText>
       <AppText style={styles.details} isSecondaryFont={true}>
-        Please try again later
+        {failure.errorDescription && 'Ass'}
       </AppText>
+      <Button onPress={OnRetryClick} color="#f194ff" style={styles.button}>
+        Retry
+      </Button>
     </View>
   );
 }
@@ -38,6 +50,11 @@ const styles = StyleSheet.create({
   },
   details: {
     margin: 4,
+  },
+  button: {
+    margin: 28,
+    color: Colors.grey,
+    backgroundColor: Colors.grey,
   },
 });
 export default GenericErrorScreen;

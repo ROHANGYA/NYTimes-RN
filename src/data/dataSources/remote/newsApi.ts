@@ -1,15 +1,16 @@
+import {AxiosInstance} from 'axios';
 import {NewsModel} from '../../models/newsModel';
 import {NewsResponseModel} from '../../models/newsResponseModel';
-import apiClient from './apiClient';
 import {endpoints} from './apiEndpoints';
 
 class NewsApi {
+  constructor(private api: AxiosInstance) {}
   async fetchMostViewedNews(): Promise<NewsModel[]> {
-    const response = await apiClient.get<NewsResponseModel>(
+    const response = await this.api.get<NewsResponseModel>(
       endpoints.MostViewedNews,
     );
     //await new Promise(resolver => setTimeout(resolver, 3000));
-    return testREsponse.results;
+    return response.data.results;
   }
 }
 

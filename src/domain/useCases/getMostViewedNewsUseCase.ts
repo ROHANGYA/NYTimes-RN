@@ -4,8 +4,8 @@ import {NewsRepository} from '../repository/newsRepository';
 class GetMostViewedNewsUseCase {
   constructor(private repository: NewsRepository) {}
 
-  call(): Promise<NewsItem[]> {
-    return this.repository.getMostViewedNews();
+  async call(): Promise<NewsItem[]> {
+    return await this.repository.getMostViewedNews();
   }
 }
 

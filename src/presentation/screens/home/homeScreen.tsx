@@ -10,6 +10,7 @@ import {Routes} from '../../navigation/routes';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import GenericLoadingScreen from '../../components/genericLoadingScreen';
 import GenericErrorScreen from '../../components/genericErrorScreen';
+import FailureEntity from '../../../domain/entities/failureEntity';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
@@ -25,7 +26,14 @@ function HomeScreen(): React.JSX.Element {
   }
 
   if (homeState.error) {
-    return <GenericErrorScreen />;
+    return (
+      <GenericErrorScreen
+        failure={new FailureEntity(homeState.error)}
+        OnRetryClick={() => {
+          dispatch(fetchMostViewedNewsList());
+        }}
+      />
+    );
   }
 
   console.info(homeState.newsList);

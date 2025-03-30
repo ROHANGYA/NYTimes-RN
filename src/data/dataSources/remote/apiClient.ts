@@ -1,21 +1,18 @@
+import {API_KEY, API_URL} from '@env';
 import axios, {
   AxiosError,
   AxiosInstance,
   InternalAxiosRequestConfig,
 } from 'axios';
-import {API_KEY, API_URL} from '@env';
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: API_URL,
-  params: {
-    language: 'en-US',
-    'api-key': API_KEY,
-  },
   timeout: 10000,
 });
 
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    config.params = {...config.params, 'api-key': API_KEY};
     return config;
   },
   (error: AxiosError): Promise<AxiosError> => {

@@ -1,11 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {NewsItem} from '../../../domain/entities/news';
 import di from '../../../di/appModule';
+import FailureEntity from '../../../domain/entities/failureEntity';
 
 interface HomeState {
   newsList: NewsItem[];
   isLoading: boolean;
-  error: String | null;
+  error: string | null;
 }
 
 const initState: HomeState = {
@@ -17,7 +18,11 @@ const initState: HomeState = {
 const homeSlice = createSlice({
   name: 'Home',
   initialState: initState,
-  reducers: {},
+  reducers: {
+    refreshHomePage: state => {
+      fetchMostViewedNewsList();
+    },
+  },
 
   extraReducers: builder => {
     builder
@@ -43,11 +48,15 @@ export const fetchMostViewedNewsList = createAsyncThunk<NewsItem[]>(
     try {
       return await di.getMostViweedNewsUseCase.call();
     } catch (err) {
-      return thunk.rejectWithValue('test');
+      console.error(err);
+      if (err instanceof FailureEntity) {
+        return thunk.rejectWithValue(err.errorDescription && 'aweef');
+      }
+      return thunk.rejectWithValue('ass');
     }
   },
 );
 
-export const {} = homeSlice.actions;
+export const {refreshHomePage} = homeSlice.actions;
 
 export default homeSlice.reducer;
