@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import NewsCard from '../../components/newsCard';
 import {fetchMostViewedNewsList} from '../../state/home/homeSlice';
@@ -40,7 +40,14 @@ function HomeScreen(): React.JSX.Element {
 
   return (
     <View style={styles.mainPage}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={homeState.isLoading}
+            onRefresh={() => dispatch(fetchMostViewedNewsList())}
+          />
+        }
+        overScrollMode="always">
         <View style={styles.mostViewedSection}>
           <AppText style={styles.sectionLabel} isSecondaryFont={true}>
             Most Viewed
@@ -69,6 +76,7 @@ function HomeScreen(): React.JSX.Element {
           </AppText>
           <ScrollView
             horizontal={false}
+            scrollEnabled={false}
             style={styles.ofInterestSectionScrollView}
             contentContainerStyle={styles.scrollViewItem}>
             {homeState.newsList.map((newsItem, index) => {

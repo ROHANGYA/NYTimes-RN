@@ -1,6 +1,5 @@
 import {PropsWithChildren, useState} from 'react';
 import {Image, StyleSheet} from 'react-native';
-import AssetUtil from '../../utils/assetUtils';
 
 type NetworkImageProps = PropsWithChildren<{
   imageUrl: string;
@@ -12,15 +11,15 @@ function NetworkImageDefault({
   fallbackLocalImage,
 }: NetworkImageProps): React.JSX.Element {
   const targetImage = {uri: imageUrl};
-  const [image, setImage] = useState<any>(targetImage);
+  const [isError, setError] = useState(false);
 
   function onError() {
-    setImage(AssetUtil.warning);
+    setError(true);
   }
 
   return (
     <Image
-      source={image}
+      source={targetImage}
       resizeMode="cover"
       style={styles.thumbImage}
       onError={err => {
