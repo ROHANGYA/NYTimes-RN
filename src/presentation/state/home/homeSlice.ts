@@ -6,7 +6,7 @@ import FailureEntity from '../../../domain/entities/failureEntity';
 interface HomeState {
   newsList: NewsItem[];
   isLoading: boolean;
-  error: string | null;
+  error: FailureEntity | null;
 }
 
 const initState: HomeState = {
@@ -32,7 +32,7 @@ const homeSlice = createSlice({
       })
       .addCase(fetchMostViewedNewsList.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.toString();
+        state.error = action.payload as FailureEntity;
       })
       .addCase(fetchMostViewedNewsList.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -45,17 +45,26 @@ const homeSlice = createSlice({
 export const fetchMostViewedNewsList = createAsyncThunk<NewsItem[]>(
   'home/mostViewedList',
   async (_, thunk) => {
-    try {
-      return await di.getMostViweedNewsUseCase.call();
-    } catch (err) {
-      console.error(err);
-      if (err instanceof FailureEntity) {
-        return thunk.rejectWithValue(err.errorDescription && 'aweef');
-      }
-      return thunk.rejectWithValue('ass');
+    const result = await di.getMostViewedNewsUseCase.call();
+    if (result instanceof FailureEntity) {
+      return thunk.rejectWithValue(result);
+    } else {
+      return thunk.fulfillWithValue(result);
     }
   },
 );
+
+export const fetchTopStoriesNewsList = createAsyncThunk<
+  NewsItem[],
+  NewsCategories
+>('home/TopStoriesList', async (category, thunk) => {
+  const result = await di.getTopStoriesByCategoryUseCase.call(category);
+  if (result instanceof FailureEntity) {
+    return thunk.rejectWithValue(result);
+  } else {
+    return thunk.fulfillWithValue(result);
+  }
+});
 
 export const {refreshHomePage} = homeSlice.actions;
 

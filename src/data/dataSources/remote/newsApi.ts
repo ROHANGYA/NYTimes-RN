@@ -12,6 +12,13 @@ class NewsApi {
     //await new Promise(resolver => setTimeout(resolver, 3000));
     return response.data.results;
   }
+
+  async fetchTopStoriesNews(category: string): Promise<NewsModel[]> {
+    const response = await this.api.get<NewsResponseModel>(
+      `${endpoints.TopStories}/${category}.json`,
+    );
+    return response.data.results;
+  }
 }
 
 export default NewsApi;

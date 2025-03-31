@@ -1,11 +1,14 @@
-import {AxiosError} from 'axios';
+export type FailureEntityType = {
+  errorDescription?: string;
+  underlyingException?: string;
+};
 
 export default class FailureEntity {
   errorDescription?: string;
-  underlyingException?: AxiosError;
+  underlyingException?: string;
 
-  constructor(error?: string, exception?: AxiosError) {
-    this.errorDescription = error;
-    this.underlyingException = exception;
+  constructor(failure: FailureEntityType) {
+    this.errorDescription = failure.errorDescription;
+    this.underlyingException = failure.underlyingException;
   }
 }
