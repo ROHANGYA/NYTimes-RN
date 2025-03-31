@@ -2,7 +2,7 @@ import {ActivityIndicator, StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 function GenericLoadingScreen(): React.JSX.Element {
-  return <ActivityIndicator style={styles.loading} size={'large'} />;
+  return <ActivityIndicator style={styles.loading} size={40} />;
 }
 
 const styles = StyleSheet.create({
@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: Colors.white,
+    paddingBottom: 100,
   },
 });
 

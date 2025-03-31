@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import NewsCard from '../../components/newsCard';
@@ -28,75 +28,83 @@ function HomeScreen(): React.JSX.Element {
   }
 
   if (homeState.isLoading) {
-    return homeState.isLoading && <GenericLoadingScreen />;
+    return HomeScaffold(homeState.isLoading && <GenericLoadingScreen />);
   }
 
   if (homeState.error) {
-    return (
+    return HomeScaffold(
       <GenericErrorScreen
         failure={new FailureEntity(homeState.error)}
         OnRetryClick={() => {
           dispatch(fetchMostViewedNewsList());
         }}
-      />
+      />,
     );
   }
 
   console.info(homeState.newsList);
+  return HomeScaffold(
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={homeState.isLoading}
+          onRefresh={() => dispatch(fetchMostViewedNewsList())}
+        />
+      }
+      overScrollMode="always">
+      <View style={styles.mostViewedSection}>
+        <AppText style={styles.sectionLabel} isSecondaryFont={true}>
+          Most Viewed
+        </AppText>
+        <ScrollView
+          horizontal={true}
+          style={styles.mostViewedSectionScrollView}
+          contentContainerStyle={styles.scrollViewItem}>
+          {homeState.newsList.map((newsItem, index) => {
+            return (
+              <NewsCard
+                key={`1${index}`}
+                newsItem={newsItem}
+                isExpanded={true}
+                onClick={() => onNewsClick(newsItem)}
+              />
+            );
+          })}
+        </ScrollView>
+      </View>
+      <View style={styles.ofInterestSection}>
+        <AppText style={styles.sectionLabel} isSecondaryFont={true}>
+          Of Interest
+        </AppText>
+        <ScrollView
+          horizontal={false}
+          scrollEnabled={false}
+          style={styles.ofInterestSectionScrollView}
+          contentContainerStyle={styles.scrollViewItem}>
+          {homeState.newsList.map((newsItem, index) => {
+            return (
+              <NewsCard
+                key={`2${index}`}
+                newsItem={newsItem}
+                isExpanded={false}
+                onClick={() => onNewsClick(newsItem)}
+              />
+            );
+          })}
+        </ScrollView>
+      </View>
+    </ScrollView>,
+  );
+}
 
+function HomeScaffold(body: React.JSX.Element) {
   return (
     <View style={styles.mainPage}>
-      <NewsAppBar title={'New York Times'} />
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={homeState.isLoading}
-            onRefresh={() => dispatch(fetchMostViewedNewsList())}
-          />
-        }
-        overScrollMode="always">
-        <View style={styles.mostViewedSection}>
-          <AppText style={styles.sectionLabel} isSecondaryFont={true}>
-            Most Viewed
-          </AppText>
-          <ScrollView
-            horizontal={true}
-            style={styles.mostViewedSectionScrollView}
-            contentContainerStyle={styles.scrollViewItem}>
-            {homeState.newsList.map((newsItem, index) => {
-              return (
-                <NewsCard
-                  key={`1${index}`}
-                  newsItem={newsItem}
-                  isExpanded={true}
-                  onClick={() => onNewsClick(newsItem)}
-                />
-              );
-            })}
-          </ScrollView>
-        </View>
-        <View style={styles.ofInterestSection}>
-          <AppText style={styles.sectionLabel} isSecondaryFont={true}>
-            Of Interest
-          </AppText>
-          <ScrollView
-            horizontal={false}
-            scrollEnabled={false}
-            style={styles.ofInterestSectionScrollView}
-            contentContainerStyle={styles.scrollViewItem}>
-            {homeState.newsList.map((newsItem, index) => {
-              return (
-                <NewsCard
-                  key={`2${index}`}
-                  newsItem={newsItem}
-                  isExpanded={false}
-                  onClick={() => onNewsClick(newsItem)}
-                />
-              );
-            })}
-          </ScrollView>
-        </View>
-      </ScrollView>
+      <NewsAppBar
+        title={'New York Times'}
+        action={{icon: 'cog', onClick: () => {}}}
+      />
+      {body}
     </View>
   );
 }
