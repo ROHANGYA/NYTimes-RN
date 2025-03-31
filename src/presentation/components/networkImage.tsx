@@ -1,5 +1,5 @@
 import {PropsWithChildren, useState} from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Image, ImageSourcePropType, StyleSheet} from 'react-native';
 
 type NetworkImageProps = PropsWithChildren<{
   imageUrl: string;
@@ -19,7 +19,11 @@ function NetworkImage({
 
   return (
     <Image
-      source={targetImage}
+      source={
+        targetImage.uri.length == 0
+          ? (fallbackLocalImage as ImageSourcePropType)
+          : targetImage
+      }
       resizeMode="cover"
       style={styles.thumbImage}
       onError={err => {
