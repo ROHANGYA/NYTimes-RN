@@ -13,11 +13,13 @@ import GenericErrorScreen from '../../components/genericErrorScreen';
 import FailureEntity from '../../../domain/entities/failureEntity';
 import {NewsItem} from '../../../domain/entities/news';
 import NewsAppBar from '../../components/newsAppBar';
+import {useLocalization} from '../../../lang/lang';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
   const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigation();
+  const strings = useLocalization();
 
   useEffect(() => {
     dispatch(fetchMostViewedNewsList());
@@ -54,7 +56,7 @@ function HomeScreen(): React.JSX.Element {
       overScrollMode="always">
       <View style={styles.mostViewedSection}>
         <AppText style={styles.sectionLabel} isSecondaryFont={true}>
-          Most Viewed
+          {strings.mostViewed}
         </AppText>
         <ScrollView
           horizontal={true}
@@ -74,7 +76,7 @@ function HomeScreen(): React.JSX.Element {
       </View>
       <View style={styles.ofInterestSection}>
         <AppText style={styles.sectionLabel} isSecondaryFont={true}>
-          Of Interest
+          {strings.ofInterest}
         </AppText>
         <ScrollView
           horizontal={false}
@@ -98,10 +100,11 @@ function HomeScreen(): React.JSX.Element {
 }
 
 function HomeScaffold(body: React.JSX.Element) {
+  const strings = useLocalization();
   return (
     <View style={styles.mainPage}>
       <NewsAppBar
-        title={'New York Times'}
+        title={strings.newYorkTimes}
         action={{icon: 'cog', onClick: () => {}}}
       />
       {body}

@@ -5,15 +5,20 @@ import {NewsItem} from '../../../domain/entities/news';
 import AppText from '../../components/appText';
 import NewsAppBar from '../../components/newsAppBar';
 import {Routes} from '../../navigation/routes';
+import {useLocalization} from '../../../lang/lang';
 
 type Props = NativeStackScreenProps<RootStackParamList, Routes.NEWS_DETAILS>;
 
 function NewsDetailsScreen({route, navigation}: Props): React.JSX.Element {
   const newsItem = route.params as NewsItem;
+  const strings = useLocalization();
 
   return (
     <View>
-      <NewsAppBar title={'News Details'} backAction={navigation.goBack} />
+      <NewsAppBar
+        title={strings.articleDetails}
+        backAction={navigation.goBack}
+      />
       <Image
         source={{uri: newsItem.imageUrl}}
         resizeMode="cover"
