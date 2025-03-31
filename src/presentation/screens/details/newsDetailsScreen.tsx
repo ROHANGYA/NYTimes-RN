@@ -3,13 +3,17 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigation/navigation';
 import {NewsItem} from '../../../domain/entities/news';
 import AppText from '../../components/appText';
+import NewsAppBar from '../../components/newsAppBar';
+import {Routes} from '../../navigation/routes';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'NewsDetails'>;
+type Props = NativeStackScreenProps<RootStackParamList, Routes.NEWS_DETAILS>;
 
 function NewsDetailsScreen({route, navigation}: Props): React.JSX.Element {
   const newsItem = route.params as NewsItem;
+
   return (
     <View>
+      <NewsAppBar title={'News Details'} backAction={navigation.goBack} />
       <Image
         source={{uri: newsItem.imageUrl}}
         resizeMode="cover"

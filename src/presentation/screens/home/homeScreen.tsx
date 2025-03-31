@@ -12,6 +12,7 @@ import GenericLoadingScreen from '../../components/genericLoadingScreen';
 import GenericErrorScreen from '../../components/genericErrorScreen';
 import FailureEntity from '../../../domain/entities/failureEntity';
 import {NewsItem} from '../../../domain/entities/news';
+import NewsAppBar from '../../components/newsAppBar';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
@@ -45,6 +46,7 @@ function HomeScreen(): React.JSX.Element {
 
   return (
     <View style={styles.mainPage}>
+      <NewsAppBar title={'New York Times'} />
       <ScrollView
         refreshControl={
           <RefreshControl

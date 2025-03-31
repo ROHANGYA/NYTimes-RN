@@ -18,31 +18,12 @@ export default function AppNavigation(): React.JSX.Element {
         <Stack.Screen
           name={Routes.HOME}
           component={HomeScreen}
-          options={{
-            title: 'New York Times',
-            headerTitleAlign: 'center',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              fontFamily: 'times',
-            },
-          }}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name={Routes.NEWS_DETAILS}
           component={NewsDetailsScreen}
-          options={{
-            // headerTitle: props => (
-            //   <View>
-            //     <Text>sefsefsef</Text>
-            //   </View>
-            // ),
-
-            title: 'Article Details',
-            headerTitleStyle: {
-              fontFamily: 'times',
-              fontWeight: 'bold',
-            },
-          }}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,11 +1,12 @@
 import React from 'react';
-import {useColorScheme} from 'react-native';
+import {StatusBar, useColorScheme} from 'react-native';
 import './gesture-handler';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
 import {store} from './src/presentation/state/store';
 
 import AppNavigation from './src/presentation/navigation/navigation';
+import {PaperProvider} from 'react-native-paper';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -17,7 +18,10 @@ function App(): React.JSX.Element {
 
   return (
     <Provider store={store}>
-      <AppNavigation />
+      <PaperProvider>
+        <StatusBar barStyle="dark-content" backgroundColor={'#FFFFFF'} />
+        <AppNavigation />
+      </PaperProvider>
     </Provider>
   );
 }
