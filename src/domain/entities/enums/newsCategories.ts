@@ -8,7 +8,7 @@ enum NewsCategories {
   home = 'home',
   movies = 'movies',
   politics = 'politics',
-  realestate = 'realestate',
+  realestate = 'real estate',
   science = 'science',
   sports = 'sports',
   technology = 'technology',

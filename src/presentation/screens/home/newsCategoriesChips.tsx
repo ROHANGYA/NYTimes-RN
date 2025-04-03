@@ -2,7 +2,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 
 import {Chip} from 'react-native-paper';
 import NewsCategories from '../../../domain/entities/enums/newsCategories';
-import {PropsWithChildren, useState} from 'react';
+import {PropsWithChildren, useEffect, useRef, useState} from 'react';
 
 type NewsCategoryChipsProps = PropsWithChildren<{
   initialSelection: NewsCategories;
@@ -17,6 +17,17 @@ function NewsCateoriesChips({
   const [selectedChips, setSelectedChip] = useState(
     newsCategories.map(category => category[1] === initialSelection),
   );
+  const scrollView = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    const targetIndex = newsCategories.findIndex(
+      category => category[1] === initialSelection,
+    );
+    scrollView?.current?.scrollTo({
+      x: targetIndex * 70,
+      animated: true,
+    });
+  });
 
   function onChipPressed(index: number) {
     const chipState = selectedChips.map((_, chipIndex) => chipIndex === index);
@@ -26,6 +37,7 @@ function NewsCateoriesChips({
 
   return (
     <ScrollView
+      ref={scrollView}
       horizontal={true}
       style={styles.container}
       showsHorizontalScrollIndicator={false}
