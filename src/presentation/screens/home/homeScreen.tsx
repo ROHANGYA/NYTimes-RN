@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import NewsCard from '../../components/newsCard';
@@ -25,6 +25,9 @@ function HomeScreen(): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigation();
   const strings = useLocalization();
+  const [currentNewsCategory, setCurrentNewsCategory] = useState(
+    NewsCategories.arts,
+  );
 
   useEffect(() => {
     callApis();
@@ -32,11 +35,16 @@ function HomeScreen(): React.JSX.Element {
 
   function callApis() {
     dispatch(fetchMostViewedNewsList());
-    dispatch(fetchTopStoriesNewsList(NewsCategories.business));
+    dispatch(fetchTopStoriesNewsList(currentNewsCategory));
   }
 
   function onNewsClick(newsItem: NewsItem) {
     navigation.dispatch(StackActions.push(Routes.NEWS_DETAILS, newsItem));
+  }
+
+  function setNewsCategory(category: NewsCategories) {
+    setCurrentNewsCategory(category);
+    dispatch(fetchTopStoriesNewsList(category));
   }
 
   if (
@@ -96,7 +104,10 @@ function HomeScreen(): React.JSX.Element {
         <AppText style={styles.sectionLabel} isSecondaryFont={true}>
           {strings.ofInterest}
         </AppText>
-        <NewsCateoriesChips />
+        <NewsCateoriesChips
+          initialSelection={currentNewsCategory}
+          onCategorySelected={setNewsCategory}
+        />
         <ScrollView
           horizontal={false}
           scrollEnabled={false}

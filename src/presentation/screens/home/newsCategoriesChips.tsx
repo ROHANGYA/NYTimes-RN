@@ -2,17 +2,26 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 
 import {Chip} from 'react-native-paper';
 import NewsCategories from '../../../domain/entities/enums/newsCategories';
-import {useState} from 'react';
+import {PropsWithChildren, useState} from 'react';
 
-function NewsCateoriesChips(): React.JSX.Element {
+type NewsCategoryChipsProps = PropsWithChildren<{
+  initialSelection: NewsCategories;
+  onCategorySelected: (category: NewsCategories) => void;
+}>;
+
+function NewsCateoriesChips({
+  initialSelection,
+  onCategorySelected,
+}: NewsCategoryChipsProps): React.JSX.Element {
   const newsCategories = Object.entries(NewsCategories);
-  let [selectedChips, setSelectedChip] = useState(
-    newsCategories.map(category => false),
+  const [selectedChips, setSelectedChip] = useState(
+    newsCategories.map(category => category[1] === initialSelection),
   );
 
   function onChipPressed(index: number) {
     const chipState = selectedChips.map((_, chipIndex) => chipIndex === index);
     setSelectedChip(chipState);
+    onCategorySelected(newsCategories[index][1]);
   }
 
   return (

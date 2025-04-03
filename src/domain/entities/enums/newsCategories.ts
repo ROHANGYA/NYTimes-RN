@@ -1,7 +1,6 @@
 enum NewsCategories {
   arts = 'arts',
   automobiles = 'automobiles',
-  books_review = 'books/review',
   business = 'business',
   fashion = 'fashion',
   food = 'food',
