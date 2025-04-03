@@ -2,7 +2,10 @@ import React, {useEffect} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import NewsCard from '../../components/newsCard';
-import {fetchMostViewedNewsList} from '../../state/home/homeSlice';
+import {
+  fetchMostViewedNewsList,
+  fetchTopStoriesNewsList,
+} from '../../state/home/homeSlice';
 import {AppDispatch, RootState} from '../../state/store';
 import AppText from '../../components/appText';
 import {StackActions, useNavigation} from '@react-navigation/native';
@@ -15,6 +18,7 @@ import {NewsItem} from '../../../domain/entities/news';
 import NewsAppBar from '../../components/newsAppBar';
 import {useLocalization} from '../../../lang/lang';
 import NewsCateoriesChips from './newsCategoriesChips';
+import NewsCategories from '../../../domain/entities/enums/newsCategories';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
@@ -23,15 +27,23 @@ function HomeScreen(): React.JSX.Element {
   const strings = useLocalization();
 
   useEffect(() => {
-    dispatch(fetchMostViewedNewsList());
+    callApis();
   }, [dispatch]);
+
+  function callApis() {
+    dispatch(fetchMostViewedNewsList());
+    dispatch(fetchTopStoriesNewsList(NewsCategories.business));
+  }
 
   function onNewsClick(newsItem: NewsItem) {
     navigation.dispatch(StackActions.push(Routes.NEWS_DETAILS, newsItem));
   }
 
-  if (homeState.isLoading) {
-    return HomeScaffold(homeState.isLoading && <GenericLoadingScreen />);
+  if (
+    homeState.mostViewedNewsListIsLoading ||
+    homeState.ofInterestNewsListIsLoading
+  ) {
+    return HomeScaffold(<GenericLoadingScreen />);
   }
 
   if (homeState.error) {
@@ -45,13 +57,18 @@ function HomeScreen(): React.JSX.Element {
     );
   }
 
-  console.info(homeState.newsList);
+  console.info(homeState.mostViewedNewsList);
+  console.info(homeState.ofInterestNewsList);
+
   return HomeScaffold(
     <ScrollView
       refreshControl={
         <RefreshControl
-          refreshing={homeState.isLoading}
-          onRefresh={() => dispatch(fetchMostViewedNewsList())}
+          refreshing={
+            homeState.mostViewedNewsListIsLoading ||
+            homeState.ofInterestNewsListIsLoading
+          }
+          onRefresh={() => callApis()}
         />
       }
       overScrollMode="always">
@@ -63,7 +80,7 @@ function HomeScreen(): React.JSX.Element {
           horizontal={true}
           style={styles.mostViewedSectionScrollView}
           contentContainerStyle={styles.scrollViewItem}>
-          {homeState.newsList.map((newsItem, index) => {
+          {homeState.mostViewedNewsList.map((newsItem, index) => {
             return (
               <NewsCard
                 key={`1${index}`}
@@ -85,7 +102,7 @@ function HomeScreen(): React.JSX.Element {
           scrollEnabled={false}
           style={styles.ofInterestSectionScrollView}
           contentContainerStyle={styles.scrollViewItem}>
-          {homeState.newsList.map((newsItem, index) => {
+          {homeState.ofInterestNewsList.map((newsItem, index) => {
             return (
               <NewsCard
                 key={`2${index}`}
@@ -95,6 +112,11 @@ function HomeScreen(): React.JSX.Element {
               />
             );
           })}
+          {homeState.ofInterestNewsList.length === 0 ? (
+            <AppText style={styles.emptyPlaceholderText}>
+              {strings.noResultsFound}
+            </AppText>
+          ) : null}
         </ScrollView>
       </View>
     </ScrollView>,
@@ -117,6 +139,7 @@ function HomeScaffold(body: React.JSX.Element) {
 const styles = StyleSheet.create({
   mainPage: {
     backgroundColor: Colors.white,
+    height: '100%',
   },
   mostViewedSection: {
     marginTop: 14,
@@ -143,6 +166,12 @@ const styles = StyleSheet.create({
   sectionLabel: {
     fontSize: 18,
     paddingLeft: 20,
+    color: Colors.black,
+  },
+  emptyPlaceholderText: {
+    fontSize: 14,
+    textAlign: 'center',
+    padding: 20,
     color: Colors.black,
   },
 });

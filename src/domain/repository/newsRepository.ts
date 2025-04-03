@@ -1,3 +1,4 @@
+import NewsCategories from '../entities/enums/newsCategories';
 import FailureEntity from '../entities/failureEntity';
 import {NewsItem} from '../entities/news';
 

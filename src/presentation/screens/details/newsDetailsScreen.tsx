@@ -6,6 +6,7 @@ import AppText from '../../components/appText';
 import NewsAppBar from '../../components/newsAppBar';
 import {Routes} from '../../navigation/routes';
 import {useLocalization} from '../../../lang/lang';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 type Props = NativeStackScreenProps<RootStackParamList, Routes.NEWS_DETAILS>;
 
@@ -14,7 +15,7 @@ function NewsDetailsScreen({route, navigation}: Props): React.JSX.Element {
   const strings = useLocalization();
 
   return (
-    <View>
+    <View style={styles.container}>
       <NewsAppBar
         title={strings.articleDetails}
         backAction={navigation.goBack}
@@ -40,6 +41,10 @@ function NewsDetailsScreen({route, navigation}: Props): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+    height: '100%',
+  },
   imageHeader: {
     width: '100%',
     height: 260,
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
   title: {
-    paddingTop: 10,
+    paddingTop: 16,
     fontWeight: 'bold',
     fontSize: 16,
   },

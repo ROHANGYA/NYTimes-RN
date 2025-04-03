@@ -3,5 +3,6 @@
   "settings": "Settings",
   "mostViewed": "Most Viewed",
   "ofInterest": "Of Interest",
-  "articleDetails": "Article details"
+  "articleDetails": "Article details",
+  "noResultsFound": "No results found !"
 }

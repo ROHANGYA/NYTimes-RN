@@ -19,13 +19,17 @@ function NewsCateoriesChips(): React.JSX.Element {
     <ScrollView
       horizontal={true}
       style={styles.container}
-      showsHorizontalScrollIndicator={false}>
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.scrollViewItemGap}>
       <View style={styles.paddingHorizontal} />
       {newsCategories.map((category, index) => (
         <Chip
+          key={index}
           onPress={() => onChipPressed(index)}
           selected={selectedChips[index]}
           showSelectedCheck={true}
+          textStyle={styles.chipText}
+          compact={true}
           style={styles.chip}>
           {category[1]}
         </Chip>
@@ -37,16 +41,22 @@ function NewsCateoriesChips(): React.JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    width: 'auto',
-
-    paddingTop: 10,
+    paddingVertical: 10,
   },
   chip: {
-    marginEnd: 10,
     backgroundColor: '#e8e8e8',
   },
   paddingHorizontal: {
-    width: 20,
+    paddingHorizontal: 6,
+  },
+  scrollViewItemGap: {
+    gap: 10,
+  },
+  chipText: {
+    margin: 0,
+    padding: 0,
+    alignItems: 'center',
+    alignSelf: 'center',
   },
 });
 

@@ -1,8 +1,6 @@
-import {NewsModel} from './newsModel';
-
-export interface NewsResponseModel {
+export interface NewsResponseModel<T> {
   status: string;
   copyright: string;
   num_results: number;
-  results: NewsModel[];
+  results: T[];
 }

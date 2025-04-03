@@ -4,4 +4,5 @@ export const stringMapping = {
   mostViewed: 'mostViewed',
   ofInterest: 'ofInterest',
   articleDetails: 'articleDetails',
+  noResultsFound: 'noResultsFound',
 };

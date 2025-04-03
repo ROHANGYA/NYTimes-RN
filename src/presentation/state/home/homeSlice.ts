@@ -2,16 +2,21 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {NewsItem} from '../../../domain/entities/news';
 import di from '../../../di/appModule';
 import FailureEntity from '../../../domain/entities/failureEntity';
+import NewsCategories from '../../../domain/entities/enums/newsCategories';
 
 interface HomeState {
-  newsList: NewsItem[];
-  isLoading: boolean;
+  mostViewedNewsList: NewsItem[];
+  mostViewedNewsListIsLoading: boolean;
+  ofInterestNewsList: NewsItem[];
+  ofInterestNewsListIsLoading: boolean;
   error: FailureEntity | null;
 }
 
 const initState: HomeState = {
-  newsList: [],
-  isLoading: true,
+  mostViewedNewsList: [],
+  mostViewedNewsListIsLoading: false,
+  ofInterestNewsList: [],
+  ofInterestNewsListIsLoading: true,
   error: null,
 };
 
@@ -20,24 +25,37 @@ const homeSlice = createSlice({
   initialState: initState,
   reducers: {
     refreshHomePage: state => {
-      fetchMostViewedNewsList();
+      //fetchMostViewedNewsList();
     },
   },
 
   extraReducers: builder => {
     builder
       .addCase(fetchMostViewedNewsList.pending, state => {
-        state.isLoading = true;
+        state.mostViewedNewsListIsLoading = true;
         state.error = null;
       })
       .addCase(fetchMostViewedNewsList.rejected, (state, action) => {
-        state.isLoading = false;
+        state.mostViewedNewsListIsLoading = false;
         state.error = action.payload as FailureEntity;
       })
       .addCase(fetchMostViewedNewsList.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.mostViewedNewsListIsLoading = false;
         state.error = null;
-        state.newsList = action.payload;
+        state.mostViewedNewsList = action.payload;
+      })
+      .addCase(fetchTopStoriesNewsList.pending, state => {
+        state.ofInterestNewsListIsLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchTopStoriesNewsList.rejected, (state, action) => {
+        state.ofInterestNewsListIsLoading = false;
+        state.error = action.payload as FailureEntity;
+      })
+      .addCase(fetchTopStoriesNewsList.fulfilled, (state, action) => {
+        state.ofInterestNewsListIsLoading = false;
+        state.error = null;
+        state.ofInterestNewsList = action.payload;
       });
   },
 });
