@@ -14,6 +14,7 @@ import FailureEntity from '../../../domain/entities/failureEntity';
 import {NewsItem} from '../../../domain/entities/news';
 import NewsAppBar from '../../components/newsAppBar';
 import {useLocalization} from '../../../lang/lang';
+import NewsCateoriesChips from './newsCategoriesChips';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
@@ -78,6 +79,7 @@ function HomeScreen(): React.JSX.Element {
         <AppText style={styles.sectionLabel} isSecondaryFont={true}>
           {strings.ofInterest}
         </AppText>
+        <NewsCateoriesChips />
         <ScrollView
           horizontal={false}
           scrollEnabled={false}

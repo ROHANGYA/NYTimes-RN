@@ -16,3 +16,5 @@ enum NewsCategories {
   travel = 'travel',
   world = 'world',
 }
+
+export default NewsCategories;
