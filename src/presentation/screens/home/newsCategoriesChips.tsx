@@ -2,7 +2,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 
 import {Chip} from 'react-native-paper';
 import NewsCategories from '../../../domain/entities/enums/newsCategories';
-import {PropsWithChildren, useEffect, useRef, useState} from 'react';
+import {PropsWithChildren, useState} from 'react';
 
 type NewsCategoryChipsProps = PropsWithChildren<{
   initialSelection: NewsCategories;
@@ -14,47 +14,37 @@ function NewsCateoriesChips({
   onCategorySelected,
 }: NewsCategoryChipsProps): React.JSX.Element {
   const newsCategories = Object.entries(NewsCategories);
-  const [selectedChips, setSelectedChip] = useState(
-    newsCategories.map(category => category[1] === initialSelection),
+  const [selectedChipIndex, setSelectedChipIndex] = useState(
+    newsCategories.findIndex(category => category[1] === initialSelection),
   );
-  const scrollView = useRef<ScrollView>(null);
-
-  useEffect(() => {
-    const targetIndex = newsCategories.findIndex(
-      category => category[1] === initialSelection,
-    );
-    scrollView?.current?.scrollTo({
-      x: targetIndex * 70,
-      animated: true,
-    });
-  });
 
   function onChipPressed(index: number) {
-    const chipState = selectedChips.map((_, chipIndex) => chipIndex === index);
-    setSelectedChip(chipState);
+    setSelectedChipIndex(index);
     onCategorySelected(newsCategories[index][1]);
   }
 
   return (
     <ScrollView
-      ref={scrollView}
       horizontal={true}
       style={styles.container}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.scrollViewItemGap}>
       <View style={styles.paddingHorizontal} />
-      {newsCategories.map((category, index) => (
-        <Chip
-          key={index}
-          onPress={() => onChipPressed(index)}
-          selected={selectedChips[index]}
-          showSelectedCheck={true}
-          textStyle={styles.chipText}
-          compact={true}
-          style={styles.chip}>
-          {category[1]}
-        </Chip>
-      ))}
+      {newsCategories.map((category, index) => {
+        const isSelected = index === selectedChipIndex;
+        return (
+          <Chip
+            key={index}
+            onPress={() => (isSelected ? null : onChipPressed(index))}
+            selected={isSelected}
+            showSelectedCheck={true}
+            textStyle={styles.chipText}
+            compact={false}
+            style={styles.chip}>
+            {category[1]}
+          </Chip>
+        );
+      })}
       <View style={styles.paddingHorizontal} />
     </ScrollView>
   );

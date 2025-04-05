@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import NewsCard from '../../components/newsCard';
@@ -25,9 +25,7 @@ function HomeScreen(): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigation();
   const strings = useLocalization();
-  const [currentNewsCategory, setCurrentNewsCategory] = useState(
-    NewsCategories.arts,
-  );
+  let currentNewsCategory = NewsCategories.arts;
 
   useEffect(() => {
     callApis();
@@ -43,15 +41,8 @@ function HomeScreen(): React.JSX.Element {
   }
 
   function setNewsCategory(category: NewsCategories) {
-    setCurrentNewsCategory(category);
+    currentNewsCategory = category;
     dispatch(fetchTopStoriesNewsList(category));
-  }
-
-  if (
-    homeState.mostViewedNewsListIsLoading ||
-    homeState.ofInterestNewsListIsLoading
-  ) {
-    return HomeScaffold(<GenericLoadingScreen />);
   }
 
   if (homeState.error) {
@@ -73,7 +64,7 @@ function HomeScreen(): React.JSX.Element {
       refreshControl={
         <RefreshControl
           refreshing={
-            homeState.mostViewedNewsListIsLoading ||
+            homeState.mostViewedNewsListIsLoading &&
             homeState.ofInterestNewsListIsLoading
           }
           onRefresh={() => callApis()}
@@ -84,51 +75,66 @@ function HomeScreen(): React.JSX.Element {
         <AppText style={styles.sectionLabel} isSecondaryFont={true}>
           {strings.mostViewed}
         </AppText>
-        <ScrollView
-          horizontal={true}
-          style={styles.mostViewedSectionScrollView}
-          contentContainerStyle={styles.scrollViewItem}>
-          {homeState.mostViewedNewsList.map((newsItem, index) => {
-            return (
-              <NewsCard
-                key={`1${index}`}
-                newsItem={newsItem}
-                isExpanded={true}
-                onClick={() => onNewsClick(newsItem)}
-              />
-            );
-          })}
-        </ScrollView>
+        {homeState.mostViewedNewsListIsLoading ? (
+          <View style={styles.loadingContainer}>
+            <GenericLoadingScreen />
+          </View>
+        ) : (
+          <ScrollView
+            horizontal={true}
+            style={styles.mostViewedSectionScrollView}
+            contentContainerStyle={styles.scrollViewItem}>
+            {homeState.mostViewedNewsList.map((newsItem, index) => {
+              return (
+                <NewsCard
+                  key={`1${index}`}
+                  newsItem={newsItem}
+                  isExpanded={true}
+                  onClick={() => onNewsClick(newsItem)}
+                />
+              );
+            })}
+          </ScrollView>
+        )}
       </View>
       <View style={styles.ofInterestSection}>
         <AppText style={styles.sectionLabel} isSecondaryFont={true}>
           {strings.ofInterest}
         </AppText>
-        <NewsCateoriesChips
-          initialSelection={currentNewsCategory}
-          onCategorySelected={setNewsCategory}
-        />
-        <ScrollView
-          horizontal={false}
-          scrollEnabled={false}
-          style={styles.ofInterestSectionScrollView}
-          contentContainerStyle={styles.scrollViewItem}>
-          {homeState.ofInterestNewsList.map((newsItem, index) => {
-            return (
-              <NewsCard
-                key={`2${index}`}
-                newsItem={newsItem}
-                isExpanded={false}
-                onClick={() => onNewsClick(newsItem)}
-              />
-            );
-          })}
-          {homeState.ofInterestNewsList.length === 0 ? (
-            <AppText style={styles.emptyPlaceholderText}>
-              {strings.noResultsFound}
-            </AppText>
-          ) : null}
-        </ScrollView>
+
+        <View>
+          <NewsCateoriesChips
+            initialSelection={currentNewsCategory}
+            onCategorySelected={setNewsCategory}
+          />
+        </View>
+        {homeState.ofInterestNewsListIsLoading ? (
+          <View style={styles.loadingContainer}>
+            <GenericLoadingScreen />
+          </View>
+        ) : (
+          <ScrollView
+            horizontal={false}
+            scrollEnabled={false}
+            style={styles.ofInterestSectionScrollView}
+            contentContainerStyle={styles.scrollViewItem}>
+            {homeState.ofInterestNewsList.map((newsItem, index) => {
+              return (
+                <NewsCard
+                  key={`2${index}`}
+                  newsItem={newsItem}
+                  isExpanded={false}
+                  onClick={() => onNewsClick(newsItem)}
+                />
+              );
+            })}
+            {homeState.ofInterestNewsList.length === 0 ? (
+              <AppText style={styles.emptyPlaceholderText}>
+                {strings.noResultsFound}
+              </AppText>
+            ) : null}
+          </ScrollView>
+        )}
       </View>
     </ScrollView>,
   );
@@ -184,6 +190,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 20,
     color: Colors.black,
+  },
+  loadingContainer: {
+    height: 240,
   },
 });
 
