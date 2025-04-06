@@ -4,8 +4,8 @@ export interface NewsModel {
   id: number;
   asset_id: number;
   source: string;
-  published_date: Date;
-  updated: Date;
+  published_date: string;
+  updated: string;
   section: string;
   subsection: string;
   nytdsection: string;

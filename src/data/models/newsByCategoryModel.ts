@@ -4,6 +4,6 @@ export interface NewsModelByCategory {
   section: string;
   title: string;
   abstract: string;
-  published_date: Date;
+  published_date: string;
   multimedia: MediaModel[] | null;
 }

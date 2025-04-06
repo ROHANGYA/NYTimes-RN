@@ -11,6 +11,7 @@ import AppText from './appText';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AssetUtil from '../../utils/assetUtils';
 import NetworkImageDefault from './networkImage';
+import {formatDate} from '../../utils/dateTimeUtil';
 
 type NewsProp = PropsWithChildren<{
   newsItem: NewsItem;
@@ -67,7 +68,7 @@ function NewsCard({
               {newsItem.title}
             </AppText>
             <AppText style={styles.newsDate} isSecondaryFont={true}>
-              {newsItem.date}
+              {formatDate(newsItem.date)}
             </AppText>
           </View>
         </View>

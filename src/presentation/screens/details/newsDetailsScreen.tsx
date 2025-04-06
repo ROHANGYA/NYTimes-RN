@@ -7,6 +7,7 @@ import NewsAppBar from '../../components/newsAppBar';
 import {Routes} from '../../navigation/routes';
 import {useLocalization} from '../../../lang/lang';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {formatDate} from '../../../utils/dateTimeUtil';
 
 type Props = NativeStackScreenProps<RootStackParamList, Routes.NEWS_DETAILS>;
 
@@ -31,7 +32,7 @@ function NewsDetailsScreen({route, navigation}: Props): React.JSX.Element {
       <AppText
         style={[styles.metadata, styles.textPaddings]}
         isSecondaryFont={true}>
-        {newsItem.date}
+        {formatDate(newsItem.date)}
       </AppText>
       <AppText style={[styles.description, styles.textPaddings]}>
         {newsItem.description}
