@@ -1,5 +1,11 @@
 import React, {useEffect} from 'react';
-import {RefreshControl, ScrollView, StyleSheet, View} from 'react-native';
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import NewsCard from '../../components/newsCard';
 import {
@@ -41,6 +47,10 @@ function HomeScreen(): React.JSX.Element {
     navigation.dispatch(StackActions.push(Routes.NEWS_DETAILS, newsItem));
   }
 
+  function onSearchClick() {
+    navigation.dispatch(StackActions.push(Routes.SEARCH_NEWS));
+  }
+
   function setNewsCategory(category: NewsCategories) {
     currentNewsCategory = category;
     dispatch(fetchTopStoriesNewsList(category));
@@ -72,7 +82,11 @@ function HomeScreen(): React.JSX.Element {
         />
       }
       overScrollMode="always">
-      <NewsSearchBar />
+      <TouchableOpacity onPress={() => onSearchClick()}>
+        <View pointerEvents="none">
+          <NewsSearchBar />
+        </View>
+      </TouchableOpacity>
       <View style={styles.mostViewedSection}>
         <AppText style={styles.sectionLabel} isSecondaryFont={true}>
           {strings.mostViewed}

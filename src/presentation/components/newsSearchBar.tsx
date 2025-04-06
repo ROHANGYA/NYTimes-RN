@@ -2,7 +2,13 @@ import {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {Searchbar} from 'react-native-paper';
 
-function NewsSearchBar(): React.JSX.Element {
+type NewsSearchBarProps = {
+  autoFocus?: boolean;
+};
+
+function NewsSearchBar({
+  autoFocus = false,
+}: NewsSearchBarProps): React.JSX.Element {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
@@ -10,7 +16,9 @@ function NewsSearchBar(): React.JSX.Element {
       placeholder="Search for an article here ..."
       onChangeText={setSearchQuery}
       value={searchQuery}
+      theme={{colors: {primary: '#000000'}}}
       style={styles.searchBar}
+      autoFocus={autoFocus}
       inputStyle={styles.searchBarInput}
     />
   );
