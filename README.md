@@ -28,7 +28,7 @@ Node: v22.14.0
 ## Status
 
 ![First Version](https://img.shields.io/badge/V0.0.1-InProgress-yellow)
-![No Expo](https://img.shields.io/badge/NO Expo-yellow)
+![No Expo](https://img.shields.io/badge/NO_Expo-yellow)
 
 ### Screenshots
 
