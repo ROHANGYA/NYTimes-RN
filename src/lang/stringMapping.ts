@@ -6,4 +6,7 @@ export const stringMapping = {
   articleDetails: 'articleDetails',
   noResultsFound: 'noResultsFound',
   pleaseRefineYourSearch: 'pleaseRefineYourSearch',
+  errorLoadingNextPage: 'errorLoadingNextPage',
+  retry: 'retry',
+  somethingWentWrong: 'somethingWentWrong',
 };

@@ -73,13 +73,7 @@ function HomeScreen(): React.JSX.Element {
   return HomeScaffold(
     <ScrollView
       refreshControl={
-        <RefreshControl
-          refreshing={
-            homeState.mostViewedNewsListIsLoading &&
-            homeState.ofInterestNewsListIsLoading
-          }
-          onRefresh={() => callApis()}
-        />
+        <RefreshControl refreshing={false} onRefresh={() => callApis()} />
       }
       overScrollMode="always">
       <TouchableOpacity onPress={() => onSearchClick()}>

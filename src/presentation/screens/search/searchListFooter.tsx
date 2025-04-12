@@ -3,24 +3,28 @@ import FailureEntity from '../../../domain/entities/failureEntity';
 import AppText from '../../components/appText';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Button} from 'react-native-paper';
+import {useLocalization} from '../../../lang/lang';
 type SearchListFooterProps = {
   isLastPage: boolean;
   nextPageError: FailureEntity | null;
   onRetryClick: () => void;
 };
 function SearchListFooter(props: SearchListFooterProps): React.JSX.Element {
+  const strings = useLocalization();
   if (props.isLastPage) {
     return <View style={styles.itemSeparator} />;
   }
   if (props.nextPageError) {
     return (
       <View style={styles.errorContainer}>
-        <AppText style={styles.noResultText}>Error loading next page. </AppText>
+        <AppText style={styles.noResultText}>
+          {strings.errorLoadingNextPage}
+        </AppText>
         <Button
           onPress={props.onRetryClick}
           style={styles.button}
           textColor="#000000">
-          Retry
+          {strings.retry}
         </Button>
       </View>
     );

@@ -6,6 +6,7 @@ import AssetUtil from '../../utils/assetUtils';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Button} from '@react-navigation/elements';
 import getErrorMessage from '../../utils/networkExceptions';
+import {useLocalization} from '../../lang/lang';
 
 type genericErrorScreenProps = PropsWithChildren<{
   failure: FailureEntity;
@@ -16,12 +17,13 @@ function GenericErrorScreen({
   failure,
   OnRetryClick,
 }: genericErrorScreenProps): React.JSX.Element {
+  const strings = useLocalization();
   console.log(failure);
   return (
     <View style={styles.container}>
       <Image source={AssetUtil.warning} style={styles.icon} />
       <AppText style={styles.Title} isSecondaryFont={true}>
-        Something Went Wrong !
+        {strings.somethingWentWrong}
       </AppText>
       <AppText style={styles.details} isSecondaryFont={true}>
         {failure.errorDescription ??
@@ -32,7 +34,7 @@ function GenericErrorScreen({
         color="#FFFFFF"
         variant="filled"
         style={styles.button}>
-        Retry
+        {strings.retry}
       </Button>
     </View>
   );

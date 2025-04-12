@@ -5,5 +5,8 @@
   "ofInterest": "Of Interest",
   "articleDetails": "Article details",
   "noResultsFound": "No results found !",
-  "pleaseRefineYourSearch": "Please try to refine your search and try again"
+  "pleaseRefineYourSearch": "Please try to refine your search and try again",
+  "errorLoadingNextPage": "Error loading next page",
+  "retry": "Retry",
+  "somethingWentWrong": "Something went wrong !"
 }
