@@ -17,7 +17,7 @@ Node: v22.14.0
 - Clean Architecture
   - Presentation
   - Domain -> Use-Case
-  - Data -> Local DB / API (Dio)
+  - Data -> Local DB / API (Axios)
 - Redux Toolkit
 - Dependency Injection
 - React Native Paper (Material)
