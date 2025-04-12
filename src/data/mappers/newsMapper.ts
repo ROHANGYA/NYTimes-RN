@@ -1,4 +1,3 @@
-import {DateTime} from 'luxon';
 import {NewsItem} from '../../domain/entities/news';
 import {toLuxonDate} from '../../utils/dateTimeUtil';
 import {NewsModelByCategory} from '../models/newsByCategoryModel';
@@ -36,7 +35,7 @@ export function mapToNewsSearchDomain(model: NewsSearchModel): NewsItem {
     id: 1,
     title: model.headline.main,
     description: model.abstract,
-    date: DateTime.now(),
+    date: toLuxonDate(model.pub_date),
     imageUrl: model.multimedia.default.url,
   };
 }
