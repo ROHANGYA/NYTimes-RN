@@ -2,6 +2,7 @@ import apiClient from '../data/dataSources/remote/apiClient';
 import NewsApi from '../data/dataSources/remote/newsApi';
 import NewsRepositoryImpl from '../data/repository/newsRepositoryImpl';
 import GetMostViweedNewsUseCase from '../domain/useCases/getMostViewedNewsUseCase';
+import getNewsFromSearchQueryUseCase from '../domain/useCases/getNewsFromSearchQueryUseCase';
 import GetTopStoriesByCatgoryUseCase from '../domain/useCases/getTopStoriesByCatgoryUseCase';
 
 class AppModule {
@@ -9,6 +10,7 @@ class AppModule {
   newsRepository: NewsRepositoryImpl;
   getMostViewedNewsUseCase: GetMostViweedNewsUseCase;
   getTopStoriesByCategoryUseCase: GetTopStoriesByCatgoryUseCase;
+  getNewsFromSearchQueryUseCase: getNewsFromSearchQueryUseCase;
 
   constructor() {
     // Initialize data sources
@@ -22,6 +24,9 @@ class AppModule {
       this.newsRepository,
     );
     this.getTopStoriesByCategoryUseCase = new GetTopStoriesByCatgoryUseCase(
+      this.newsRepository,
+    );
+    this.getNewsFromSearchQueryUseCase = new getNewsFromSearchQueryUseCase(
       this.newsRepository,
     );
   }

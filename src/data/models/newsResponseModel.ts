@@ -2,5 +2,6 @@ export interface NewsResponseModel<T> {
   status: string;
   copyright: string;
   num_results: number;
-  results: T[];
+  results: T;
+  response: T;
 }

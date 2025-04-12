@@ -7,4 +7,8 @@ export interface NewsRepository {
   getTopStoriesByCatgory(
     category: NewsCategories,
   ): Promise<NewsItem[] | FailureEntity>;
+  getNewsFromSearch(
+    searchQuery: string,
+    pageNumber: number,
+  ): Promise<NewsItem[] | FailureEntity>;
 }

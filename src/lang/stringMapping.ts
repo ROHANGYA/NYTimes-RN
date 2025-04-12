@@ -5,4 +5,5 @@ export const stringMapping = {
   ofInterest: 'ofInterest',
   articleDetails: 'articleDetails',
   noResultsFound: 'noResultsFound',
+  pleaseRefineYourSearch: 'pleaseRefineYourSearch',
 };

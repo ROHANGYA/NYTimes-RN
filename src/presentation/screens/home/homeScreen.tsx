@@ -36,7 +36,7 @@ function HomeScreen(): React.JSX.Element {
 
   useEffect(() => {
     callApis();
-  }, [dispatch]);
+  }, []);
 
   function callApis() {
     dispatch(fetchMostViewedNewsList());
@@ -84,7 +84,7 @@ function HomeScreen(): React.JSX.Element {
       overScrollMode="always">
       <TouchableOpacity onPress={() => onSearchClick()}>
         <View pointerEvents="none">
-          <NewsSearchBar />
+          <NewsSearchBar onSubmit={function (_) {}} />
         </View>
       </TouchableOpacity>
       <View style={styles.mostViewedSection}>

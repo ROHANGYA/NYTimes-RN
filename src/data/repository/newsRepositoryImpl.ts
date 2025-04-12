@@ -5,7 +5,11 @@ import {NewsRepository} from '../../domain/repository/newsRepository';
 import NewsApi from '../dataSources/remote/newsApi';
 
 import NewsCategories from '../../domain/entities/enums/newsCategories';
-import {mapToNewsCategoryDomain, mapToNewsDomain} from '../mappers/newsMapper';
+import {
+  mapToNewsCategoryDomain,
+  mapToNewsDomain,
+  mapToNewsSearchDomain,
+} from '../mappers/newsMapper';
 
 class NewsRepositoryImpl implements NewsRepository {
   constructor(private api: NewsApi) {}
@@ -33,6 +37,21 @@ class NewsRepositoryImpl implements NewsRepository {
         return new FailureEntity({underlyingException: err.code});
       }
       return new FailureEntity({});
+    }
+  }
+
+  async getNewsFromSearch(
+    searchQuery: string,
+    pageNumber: number,
+  ): Promise<NewsItem[] | FailureEntity> {
+    try {
+      const result = await this.api.searchNews(searchQuery, pageNumber);
+      return result.map(newsModel => mapToNewsSearchDomain(newsModel));
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        return new FailureEntity({underlyingException: err.code});
+      }
+      return new FailureEntity({underlyingException: `${err}`});
     }
   }
 }
