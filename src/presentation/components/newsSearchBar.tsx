@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {Searchbar} from 'react-native-paper';
+import {useLocalization} from '../../lang/lang';
 
 type NewsSearchBarProps = {
   autoFocus?: boolean;
@@ -11,11 +12,12 @@ function NewsSearchBar({
   autoFocus = false,
   onSubmit,
 }: NewsSearchBarProps): React.JSX.Element {
+  const strings = useLocalization();
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <Searchbar
-      placeholder="Search for an article here ..."
+      placeholder={strings.searchForAnArticleHere}
       onChangeText={setSearchQuery}
       value={searchQuery}
       onSubmitEditing={event => {

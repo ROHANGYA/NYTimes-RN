@@ -8,5 +8,6 @@
   "pleaseRefineYourSearch": "Please try to refine your search and try again",
   "errorLoadingNextPage": "Error loading next page",
   "retry": "Retry",
-  "somethingWentWrong": "Something went wrong !"
+  "somethingWentWrong": "Something went wrong !",
+  "searchForAnArticleHere": "Search for an article here ..."
 }

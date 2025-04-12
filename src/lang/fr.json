@@ -1,12 +1,13 @@
 {
   "newYorkTimes": "New York Times",
-  "settings": "Settings",
-  "mostViewed": "Most Viewed",
-  "ofInterest": "Of Interest",
-  "articleDetails": "Article details",
-  "noResultsFound": "No results found !",
-  "pleaseRefineYourSearch": "Please try to refine your search and try again",
-  "errorLoadingNextPage": "Error loading next page",
-  "retry": "Retry",
-  "somethingWentWrong": "Something went wrong !"
+  "settings": "Paramètres",
+  "mostViewed": "Les plus consultés",
+  "ofInterest": "D'intérêt",
+  "articleDetails": "Détails de l'article",
+  "noResultsFound": "Aucun résultat trouvé !",
+  "pleaseRefineYourSearch": "Veuillez essayer d'affiner votre recherche et réessayer",
+  "errorLoadingNextPage": "Erreur lors du chargement de la page suivante",
+  "retry": "Réessayer",
+  "somethingWentWrong": "Quelque chose s'est mal passé !",
+  "searchForAnArticleHere": "Rechercher un article ici ..."
 }

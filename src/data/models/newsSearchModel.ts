@@ -1,14 +1,14 @@
 export interface NewsSearchModel {
   abstract: string;
   headline: Headline;
-  //  _id: string;
+  _id: string;
   multimedia: Multimedia;
   pub_date: string;
-  //  section_name: string;
-  //   snippet: string;
-  //   uri: string;
-  //   web_url: string;
-  //   word_count: number;
+  section_name: string;
+  snippet: string;
+  uri: string;
+  web_url: string;
+  word_count: number;
 }
 
 export interface Headline {

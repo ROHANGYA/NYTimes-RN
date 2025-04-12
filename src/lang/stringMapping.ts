@@ -9,4 +9,5 @@ export const stringMapping = {
   errorLoadingNextPage: 'errorLoadingNextPage',
   retry: 'retry',
   somethingWentWrong: 'somethingWentWrong',
+  searchForAnArticleHere: 'searchForAnArticleHere',
 };

@@ -1,28 +1,28 @@
 import i18n from 'i18next';
 import en from './en.json';
+import fr from './fr.json';
 import {initReactI18next} from 'react-i18next';
 import {getLocales} from 'react-native-localize';
 import {useMemo} from 'react';
 import {stringMapping} from './stringMapping';
-
-// Define the type for supported languages
-export type TranslationKeys = keyof typeof en;
+import Languages from '../domain/entities/enums/languages';
 
 // Detect the device language
 const getDeviceLanguage = (): string => {
   const locales = getLocales();
-  return locales[0]?.languageTag || 'en';
+  console.log(`Locales: ${locales.map(e => e.languageTag)}`);
+  return locales[0]?.languageTag || Languages.english.toString();
 };
 
 // Initialize i18next
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v4',
   resources: {
-    en: {translation: en},
-    fr: {translation: 'fr'},
+    'en-GB': {translation: en},
+    'fr-FR': {translation: fr},
   },
   lng: getDeviceLanguage(),
-  fallbackLng: 'en',
+  fallbackLng: Languages.english.toString(),
   interpolation: {
     escapeValue: false,
   },
