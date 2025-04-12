@@ -16,7 +16,6 @@ function App(): React.JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  const safePadding = '5%';
 
   return (
     <Provider store={store}>

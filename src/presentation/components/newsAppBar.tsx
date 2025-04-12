@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FFFFFF',
     elevation: 6,
+    height: 'auto',
   },
   title: {
     fontFamily: 'times',
