@@ -26,6 +26,7 @@ import {useLocalization} from '../../../lang/lang';
 import NewsCateoriesChips from './newsCategoriesChips';
 import NewsCategories from '../../../domain/entities/enums/newsCategories';
 import NewsSearchBar from '../../components/newsSearchBar';
+import NoInternetBanner from '../../components/noInternetBanner';
 
 function HomeScreen(): React.JSX.Element {
   const homeState = useSelector((state: RootState) => state.home);
@@ -76,6 +77,7 @@ function HomeScreen(): React.JSX.Element {
         <RefreshControl refreshing={false} onRefresh={() => callApis()} />
       }
       overScrollMode="always">
+      <NoInternetBanner />
       <TouchableOpacity onPress={() => onSearchClick()}>
         <View pointerEvents="none">
           <NewsSearchBar onSubmit={function (_) {}} />

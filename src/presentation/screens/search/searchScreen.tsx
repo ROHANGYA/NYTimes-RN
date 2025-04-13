@@ -15,6 +15,7 @@ import NoResultsFound from './noResultsFound';
 import SearchListFooter from './searchListFooter';
 import {StackActions} from '@react-navigation/routers';
 import SearchListBody from './searchListBody';
+import NoInternetBanner from '../../components/noInternetBanner';
 
 type NavProps = NativeStackScreenProps<RootStackParamList, Routes.SEARCH_NEWS>;
 
@@ -42,6 +43,7 @@ function SearchScreen({route, navigation}: NavProps): React.JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
+      <NoInternetBanner />
       <View style={styles.header}>
         <IconButton
           icon="arrow-left"

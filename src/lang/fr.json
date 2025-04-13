@@ -9,5 +9,6 @@
   "errorLoadingNextPage": "Erreur lors du chargement de la page suivante",
   "retry": "Réessayer",
   "somethingWentWrong": "Quelque chose s'est mal passé !",
-  "searchForAnArticleHere": "Rechercher un article ici ..."
+  "searchForAnArticleHere": "Rechercher un article ici ...",
+  "youAreOfflinePleaseCheckConnection": "Vous êtes hors ligne. Veuillez vérifier votre connexion internet."
 }

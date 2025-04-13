@@ -10,4 +10,5 @@ export const stringMapping = {
   retry: 'retry',
   somethingWentWrong: 'somethingWentWrong',
   searchForAnArticleHere: 'searchForAnArticleHere',
+  youAreOfflinePleaseCheckConnection: 'youAreOfflinePleaseCheckConnection',
 };
