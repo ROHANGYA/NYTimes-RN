@@ -51,7 +51,7 @@ class NewsRepositoryImpl implements NewsRepository {
       if (err instanceof AxiosError) {
         return new FailureEntity({underlyingException: err.code});
       }
-      return new FailureEntity({underlyingException: `${err}`});
+      return new FailureEntity({});
     }
   }
 }
