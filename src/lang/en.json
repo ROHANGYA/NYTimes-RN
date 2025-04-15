@@ -11,5 +11,9 @@
   "somethingWentWrong": "Something went wrong !",
   "searchForAnArticleHere": "Search for an article here ...",
   "youAreOfflinePleaseCheckConnection": "You are offline. Please check your internet connection.",
-  "youHaveReachedTheEndOfTheList": "You have reached the end of the list."
+  "youHaveReachedTheEndOfTheList": "You have reached the end of the list.",
+  "youAreNotAuthorisedToAccessThisPage": "You are not authorised to access this page",
+  "weDetectedTooManyRequests": "We detected too many requests coming from this device, please try again later",
+  "serviceCurrentlyUnavilable": "The service is currently unavailable, please try again later.",
+  "anErrorHasOccurredPleaseTryAgain": "An error has occurred, please try again later."
 }

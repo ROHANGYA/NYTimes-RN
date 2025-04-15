@@ -11,5 +11,9 @@
   "somethingWentWrong": "Quelque chose s'est mal passé !",
   "searchForAnArticleHere": "Rechercher un article ici ...",
   "youAreOfflinePleaseCheckConnection": "Vous êtes hors ligne. Veuillez vérifier votre connexion internet.",
-  "youHaveReachedTheEndOfTheList": "Vous avez atteint la fin de la liste."
+  "youHaveReachedTheEndOfTheList": "Vous avez atteint la fin de la liste.",
+  "youAreNotAuthorisedToAccessThisPage": "Vous n'êtes pas autorisé à accéder à cette page",
+  "weDetectedTooManyRequests": "Nous avons détecté trop de requêtes provenant de cet appareil, veuillez réessayer plus tard",
+  "serviceCurrentlyUnavilable": "Le service est actuellement indisponible, veuillez réessayer plus tard",
+  "anErrorHasOccurredPleaseTryAgain": "Une erreur s'est produite, veuillez réessayer plus tard"
 }

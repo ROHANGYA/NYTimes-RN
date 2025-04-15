@@ -5,8 +5,8 @@ import React, {PropsWithChildren} from 'react';
 import AssetUtil from '../../utils/assetUtils';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Button} from '@react-navigation/elements';
-import getErrorMessage from '../../utils/networkExceptions';
 import {useLocalization} from '../../lang/lang';
+import {getDisplayMessage} from '../../utils/ExceptionUtils';
 
 type genericErrorScreenProps = PropsWithChildren<{
   failure: FailureEntity;
@@ -26,8 +26,7 @@ function GenericErrorScreen({
         {strings.somethingWentWrong}
       </AppText>
       <AppText style={styles.details} isSecondaryFont={true}>
-        {failure.errorDescription ??
-          getErrorMessage(failure.underlyingException)}
+        {failure.errorDescription ?? getDisplayMessage(failure)}
       </AppText>
       <Button
         onPress={OnRetryClick}

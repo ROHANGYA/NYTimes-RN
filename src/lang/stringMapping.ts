@@ -12,4 +12,8 @@ export const stringMapping = {
   searchForAnArticleHere: 'searchForAnArticleHere',
   youAreOfflinePleaseCheckConnection: 'youAreOfflinePleaseCheckConnection',
   youHaveReachedTheEndOfTheList: 'youHaveReachedTheEndOfTheList',
+  youAreNotAuthorisedToAccessThisPage: 'youAreNotAuthorisedToAccessThisPage',
+  weDetectedTooManyRequests: 'weDetectedTooManyRequests',
+  serviceCurrentlyUnavilable: 'serviceCurrentlyUnavilable',
+  anErrorHasOccurredPleaseTryAgain: 'anErrorHasOccurredPleaseTryAgain',
 };

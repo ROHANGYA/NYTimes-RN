@@ -1,4 +1,3 @@
-import {AxiosError} from 'axios';
 import FailureEntity from '../../domain/entities/failureEntity';
 import {NewsItem} from '../../domain/entities/news';
 import {NewsRepository} from '../../domain/repository/newsRepository';
@@ -10,6 +9,7 @@ import {
   mapToNewsDomain,
   mapToNewsSearchDomain,
 } from '../mappers/newsMapper';
+import {repositoryExceptionHandler} from '../../utils/ExceptionUtils';
 
 class NewsRepositoryImpl implements NewsRepository {
   constructor(private api: NewsApi) {}
@@ -19,10 +19,7 @@ class NewsRepositoryImpl implements NewsRepository {
       const result = await this.api.fetchMostViewedNews();
       return result.map(newsModel => mapToNewsDomain(newsModel));
     } catch (err) {
-      if (err instanceof AxiosError) {
-        return new FailureEntity({underlyingException: err.code});
-      }
-      return new FailureEntity({});
+      return repositoryExceptionHandler(err);
     }
   }
 
@@ -33,10 +30,7 @@ class NewsRepositoryImpl implements NewsRepository {
       const result = await this.api.fetchTopStoriesNews(category.toString());
       return result.map(newsModel => mapToNewsCategoryDomain(newsModel));
     } catch (err) {
-      if (err instanceof AxiosError) {
-        return new FailureEntity({underlyingException: err.code});
-      }
-      return new FailureEntity({});
+      return repositoryExceptionHandler(err);
     }
   }
 
@@ -48,10 +42,7 @@ class NewsRepositoryImpl implements NewsRepository {
       const result = await this.api.searchNews(searchQuery, pageNumber);
       return result.map(newsModel => mapToNewsSearchDomain(newsModel));
     } catch (err) {
-      if (err instanceof AxiosError) {
-        return new FailureEntity({underlyingException: err.code});
-      }
-      return new FailureEntity({});
+      return repositoryExceptionHandler(err);
     }
   }
 }
