@@ -1,5 +1,6 @@
 import {PropsWithChildren, useState} from 'react';
 import {Image, ImageSourcePropType, StyleSheet} from 'react-native';
+import AssetUtil from '../../utils/assetUtils';
 
 type NetworkImageProps = PropsWithChildren<{
   imageUrl: string;
@@ -20,10 +21,11 @@ function NetworkImage({
   return (
     <Image
       source={
-        targetImage.uri.length == 0
+        targetImage.uri.length === 0
           ? (fallbackLocalImage as ImageSourcePropType)
           : targetImage
       }
+      defaultSource={AssetUtil.imagePlaceholder}
       resizeMode="cover"
       style={styles.thumbImage}
       onError={err => {
@@ -38,6 +40,7 @@ const styles = StyleSheet.create({
   thumbImage: {
     width: 120,
     borderRadius: 8,
+    backgroundColor: '#e8e8e8',
   },
 });
 

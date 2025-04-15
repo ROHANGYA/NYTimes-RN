@@ -10,5 +10,6 @@
   "retry": "Retry",
   "somethingWentWrong": "Something went wrong !",
   "searchForAnArticleHere": "Search for an article here ...",
-  "youAreOfflinePleaseCheckConnection": "You are offline. Please check your internet connection."
+  "youAreOfflinePleaseCheckConnection": "You are offline. Please check your internet connection.",
+  "youHaveReachedTheEndOfTheList": "You have reached the end of the list."
 }

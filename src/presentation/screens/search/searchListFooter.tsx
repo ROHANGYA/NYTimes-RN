@@ -12,7 +12,13 @@ type SearchListFooterProps = {
 function SearchListFooter(props: SearchListFooterProps): React.JSX.Element {
   const strings = useLocalization();
   if (props.isLastPage) {
-    return <View style={styles.itemSeparator} />;
+    return (
+      <View style={styles.endOfListContainer}>
+        <AppText style={styles.noResultText}>
+          {strings.youHaveReachedTheEndOfTheList}
+        </AppText>
+      </View>
+    );
   }
   if (props.nextPageError) {
     return (
@@ -44,8 +50,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingHorizontal: 20,
   },
-  itemSeparator: {
-    height: 20,
+  endOfListContainer: {
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   loadingFooter: {
     height: 100,
@@ -54,7 +62,6 @@ const styles = StyleSheet.create({
   errorContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-
     alignItems: 'center',
   },
   button: {

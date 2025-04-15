@@ -11,4 +11,5 @@ export const stringMapping = {
   somethingWentWrong: 'somethingWentWrong',
   searchForAnArticleHere: 'searchForAnArticleHere',
   youAreOfflinePleaseCheckConnection: 'youAreOfflinePleaseCheckConnection',
+  youHaveReachedTheEndOfTheList: 'youHaveReachedTheEndOfTheList',
 };

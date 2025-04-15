@@ -10,5 +10,6 @@
   "retry": "Réessayer",
   "somethingWentWrong": "Quelque chose s'est mal passé !",
   "searchForAnArticleHere": "Rechercher un article ici ...",
-  "youAreOfflinePleaseCheckConnection": "Vous êtes hors ligne. Veuillez vérifier votre connexion internet."
+  "youAreOfflinePleaseCheckConnection": "Vous êtes hors ligne. Veuillez vérifier votre connexion internet.",
+  "youHaveReachedTheEndOfTheList": "Vous avez atteint la fin de la liste."
 }
