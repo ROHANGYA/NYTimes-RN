@@ -8,6 +8,7 @@ import {Routes} from '../../navigation/routes';
 import {useLocalization} from '../../../lang/lang';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {formatDate} from '../../../utils/dateTimeUtil';
+import AssetUtil from '../../../utils/assetUtils';
 
 type Props = NativeStackScreenProps<RootStackParamList, Routes.NEWS_DETAILS>;
 
@@ -22,7 +23,11 @@ function NewsDetailsScreen({route, navigation}: Props): React.JSX.Element {
         backAction={navigation.goBack}
       />
       <Image
-        source={{uri: newsItem.imageUrl}}
+        source={
+          newsItem.imageUrl.length === 0
+            ? AssetUtil.imagePlaceholder
+            : {uri: newsItem.imageUrl}
+        }
         resizeMode="cover"
         style={styles.imageHeader}
       />

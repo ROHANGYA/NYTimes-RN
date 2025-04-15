@@ -1,16 +1,12 @@
 import {PropsWithChildren, useState} from 'react';
-import {Image, ImageSourcePropType, StyleSheet} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import AssetUtil from '../../utils/assetUtils';
 
 type NetworkImageProps = PropsWithChildren<{
   imageUrl: string;
-  fallbackLocalImage: string;
 }>;
 
-function NetworkImage({
-  imageUrl,
-  fallbackLocalImage,
-}: NetworkImageProps): React.JSX.Element {
+function NetworkImage({imageUrl}: NetworkImageProps): React.JSX.Element {
   const targetImage = {uri: imageUrl};
   const [isError, setError] = useState(false);
 
@@ -20,14 +16,12 @@ function NetworkImage({
 
   return (
     <Image
-      source={
-        targetImage.uri.length === 0
-          ? (fallbackLocalImage as ImageSourcePropType)
-          : targetImage
-      }
-      defaultSource={AssetUtil.imagePlaceholder}
+      source={imageUrl.length === 0 ? AssetUtil.imagePlaceholder : targetImage}
       resizeMode="cover"
-      style={styles.thumbImage}
+      style={[
+        styles.thumbImage,
+        imageUrl.length === 0 ? styles.errorThumb : {},
+      ]}
       onError={err => {
         console.error(err);
         onError();
@@ -39,8 +33,12 @@ function NetworkImage({
 const styles = StyleSheet.create({
   thumbImage: {
     width: 120,
-    borderRadius: 8,
     backgroundColor: '#e8e8e8',
+    borderRadius: 8,
+  },
+  errorThumb: {
+    backgroundColor: '#FFFFFF',
+    alignSelf: 'flex-end',
   },
 });
 

@@ -31,7 +31,11 @@ function NewsCard({
       {isExpanded ? (
         <View style={styles.newsCardExpanded}>
           <ImageBackground
-            source={newsImage}
+            source={
+              newsItem.imageUrl.length === 0
+                ? AssetUtil.imagePlaceholder
+                : newsImage
+            }
             resizeMode="cover"
             style={styles.backgroundImage}>
             <LinearGradient
@@ -56,10 +60,7 @@ function NewsCard({
             resizeMode="cover"
             style={styles.thumbImage}
           /> */}
-          <NetworkImageDefault
-            imageUrl={newsImage.uri}
-            fallbackLocalImage={AssetUtil.warning}
-          />
+          <NetworkImageDefault imageUrl={newsImage.uri} />
           <View style={styles.newsCol}>
             <AppText
               style={styles.newsTitle}
