@@ -1,6 +1,5 @@
 import React from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
-import './gesture-handler';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Provider} from 'react-redux';
 import {store} from './src/presentation/state/store';
