@@ -57,10 +57,16 @@ function HomeScreen(): React.JSX.Element {
     dispatch(fetchTopStoriesNewsList(category));
   }
 
-  if (homeState.error) {
+  if (homeState.mostViewedNewsError || homeState.ofInterestNewsError) {
     return HomeScaffold(
       <GenericErrorScreen
-        failure={new FailureEntity(homeState.error)}
+        failure={
+          homeState.mostViewedNewsError !== null
+            ? homeState.mostViewedNewsError
+            : homeState.ofInterestNewsError !== null
+            ? homeState.ofInterestNewsError
+            : new FailureEntity({})
+        }
         OnRetryClick={() => {
           dispatch(fetchMostViewedNewsList());
         }}

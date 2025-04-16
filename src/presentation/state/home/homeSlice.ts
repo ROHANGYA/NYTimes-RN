@@ -7,17 +7,19 @@ import NewsCategories from '../../../domain/entities/enums/newsCategories';
 interface HomeState {
   mostViewedNewsList: NewsItem[];
   mostViewedNewsListIsLoading: boolean;
+  mostViewedNewsError: FailureEntity | null;
   ofInterestNewsList: NewsItem[];
   ofInterestNewsListIsLoading: boolean;
-  error: FailureEntity | null;
+  ofInterestNewsError: FailureEntity | null;
 }
 
 const initState: HomeState = {
   mostViewedNewsList: [],
   mostViewedNewsListIsLoading: false,
+  mostViewedNewsError: null,
   ofInterestNewsList: [],
   ofInterestNewsListIsLoading: true,
-  error: null,
+  ofInterestNewsError: null,
 };
 
 const homeSlice = createSlice({
@@ -33,28 +35,29 @@ const homeSlice = createSlice({
     builder
       .addCase(fetchMostViewedNewsList.pending, state => {
         state.mostViewedNewsListIsLoading = true;
-        state.error = null;
+        state.mostViewedNewsError = null;
+        state.ofInterestNewsError = null;
       })
       .addCase(fetchMostViewedNewsList.rejected, (state, action) => {
         state.mostViewedNewsListIsLoading = false;
-        state.error = action.payload as FailureEntity;
+        state.mostViewedNewsError = action.payload as FailureEntity;
       })
       .addCase(fetchMostViewedNewsList.fulfilled, (state, action) => {
         state.mostViewedNewsListIsLoading = false;
-        state.error = null;
+        state.mostViewedNewsError = null;
         state.mostViewedNewsList = action.payload;
       })
       .addCase(fetchTopStoriesNewsList.pending, state => {
         state.ofInterestNewsListIsLoading = true;
-        state.error = null;
+        state.ofInterestNewsError = null;
       })
       .addCase(fetchTopStoriesNewsList.rejected, (state, action) => {
         state.ofInterestNewsListIsLoading = false;
-        state.error = action.payload as FailureEntity;
+        state.ofInterestNewsError = action.payload as FailureEntity;
       })
       .addCase(fetchTopStoriesNewsList.fulfilled, (state, action) => {
         state.ofInterestNewsListIsLoading = false;
-        state.error = null;
+        state.ofInterestNewsError = null;
         state.ofInterestNewsList = action.payload;
       });
   },
