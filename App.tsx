@@ -1,8 +1,6 @@
 import React from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {Provider} from 'react-redux';
-import {store} from './src/presentation/state/store';
 
 import AppNavigation from './src/presentation/navigation/navigation';
 import {PaperProvider} from 'react-native-paper';
@@ -17,14 +15,12 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <Provider store={store}>
-      <PaperProvider>
-        <I18nextProvider i18n={i18nLocale}>
-          <StatusBar barStyle="dark-content" backgroundColor={'#FFFFFF'} />
-          <AppNavigation />
-        </I18nextProvider>
-      </PaperProvider>
-    </Provider>
+    <PaperProvider>
+      <I18nextProvider i18n={i18nLocale}>
+        <StatusBar barStyle="dark-content" backgroundColor={'#FFFFFF'} />
+        <AppNavigation />
+      </I18nextProvider>
+    </PaperProvider>
   );
 }
 

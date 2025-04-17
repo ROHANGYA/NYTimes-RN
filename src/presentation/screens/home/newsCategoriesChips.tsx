@@ -2,26 +2,15 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 
 import {Chip} from 'react-native-paper';
 import NewsCategories from '../../../domain/entities/enums/newsCategories';
-import {PropsWithChildren, useState} from 'react';
+import {PropsWithChildren} from 'react';
+import {useOfInterestState} from '../../state/home/ofInterestState';
 
-type NewsCategoryChipsProps = PropsWithChildren<{
-  initialSelection: NewsCategories;
-  onCategorySelected: (category: NewsCategories) => void;
-}>;
+type NewsCategoryChipsProps = PropsWithChildren<{}>;
 
-function NewsCateoriesChips({
-  initialSelection,
-  onCategorySelected,
-}: NewsCategoryChipsProps): React.JSX.Element {
-  const newsCategories = Object.entries(NewsCategories);
-  const [selectedChipIndex, setSelectedChipIndex] = useState(
-    newsCategories.findIndex(category => category[1] === initialSelection),
-  );
-
-  function onChipPressed(index: number) {
-    setSelectedChipIndex(index);
-    onCategorySelected(newsCategories[index][1]);
-  }
+function NewsCateoriesChips(): React.JSX.Element {
+  const newsCategoryOptions = Object.entries(NewsCategories);
+  const currentSelection = useOfInterestState(state => state.newsCategory);
+  const loadData = useOfInterestState(state => state.loadData);
 
   return (
     <ScrollView
@@ -30,12 +19,12 @@ function NewsCateoriesChips({
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.scrollViewItemGap}>
       <View style={styles.paddingHorizontal} />
-      {newsCategories.map((category, index) => {
-        const isSelected = index === selectedChipIndex;
+      {newsCategoryOptions.map((category, index) => {
+        const isSelected = category[1] === currentSelection;
         return (
           <Chip
             key={index}
-            onPress={() => (isSelected ? null : onChipPressed(index))}
+            onPress={() => (isSelected ? null : loadData(category[1]))}
             selected={isSelected}
             showSelectedCheck={true}
             textStyle={styles.chipText}

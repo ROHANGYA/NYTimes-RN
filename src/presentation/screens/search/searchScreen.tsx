@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import NewsSearchBar from '../../components/newsSearchBar';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {IconButton} from 'react-native-paper';
@@ -7,22 +7,11 @@ import {Routes} from '../../navigation/routes';
 import {RootStackParamList} from '../../navigation/navigation';
 
 import {useEffect, useRef} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import NewsCard from '../../components/newsCard';
-import {searchNewsList} from '../../state/search/searchSlice';
-import {AppDispatch, RootState} from '../../state/store';
-import NoResultsFound from './noResultsFound';
-import SearchListFooter from './searchListFooter';
-import {StackActions} from '@react-navigation/routers';
-import SearchListBody from './searchListBody';
 import NoInternetBanner from '../../components/noInternetBanner';
 
-type NavProps = NativeStackScreenProps<RootStackParamList, Routes.SEARCH_NEWS>;
+type NavProps = NativeStackScreenProps<RootStackParamList, Routes.SearchNews>;
 
 function SearchScreen({route, navigation}: NavProps): React.JSX.Element {
-  const searchState = useSelector((state: RootState) => state.search);
-  const dispatch = useDispatch<AppDispatch>();
-
   const searchQuery = useRef<string>('');
   const page = useRef<number>(0);
 
@@ -30,16 +19,7 @@ function SearchScreen({route, navigation}: NavProps): React.JSX.Element {
     callApi();
   }, []);
 
-  function callApi() {
-    dispatch(
-      searchNewsList({
-        searchQuery: searchQuery.current,
-        pageNumber: page.current,
-      }),
-    );
-  }
-
-  console.info(searchState.data);
+  function callApi() {}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -63,8 +43,8 @@ function SearchScreen({route, navigation}: NavProps): React.JSX.Element {
           />
         </View>
       </View>
-      <SearchListBody
-        isLoading={searchState.firstLoading}
+      {/* <SearchListBody
+        isLoading={true}
         error={searchState.firstPageError}
         onRetryClick={callApi}>
         <FlatList
@@ -111,7 +91,7 @@ function SearchScreen({route, navigation}: NavProps): React.JSX.Element {
             }
           }}
         />
-      </SearchListBody>
+      </SearchListBody> */}
     </SafeAreaView>
   );
 }

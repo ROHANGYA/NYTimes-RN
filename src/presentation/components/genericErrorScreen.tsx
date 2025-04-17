@@ -4,9 +4,9 @@ import AppText from './appText';
 import React, {PropsWithChildren} from 'react';
 import AssetUtil from '../../utils/assetUtils';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {Button} from '@react-navigation/elements';
 import {useLocalization} from '../../lang/lang';
 import {getDisplayMessage} from '../../utils/ExceptionUtils';
+import {Button} from 'react-native-paper';
 
 type genericErrorScreenProps = PropsWithChildren<{
   failure: FailureEntity;
@@ -28,11 +28,7 @@ function GenericErrorScreen({
       <AppText style={styles.details} isSecondaryFont={true}>
         {failure.errorDescription ?? getDisplayMessage(failure)}
       </AppText>
-      <Button
-        onPress={OnRetryClick}
-        color="#FFFFFF"
-        variant="filled"
-        style={styles.button}>
+      <Button onPress={OnRetryClick} textColor="#000000" style={styles.button}>
         {strings.retry}
       </Button>
     </View>
@@ -43,9 +39,10 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: Colors.white,
+    paddingTop: 20,
     paddingHorizontal: 26,
     paddingBottom: 160,
   },
