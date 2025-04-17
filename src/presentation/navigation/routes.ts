@@ -1,5 +1,5 @@
 export enum Routes {
-  HOME = 'Home',
-  NEWS_DETAILS = 'NewsDetails',
-  SEARCH_NEWS = 'SearchNews',
+  Home = 'Home',
+  NewsDetails = 'NewsDetails',
+  SearchNews = 'SearchNews',
 }

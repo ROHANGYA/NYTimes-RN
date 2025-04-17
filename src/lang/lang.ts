@@ -18,8 +18,8 @@ const getDeviceLanguage = (): string => {
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v4',
   resources: {
-    'en-GB': {translation: en},
-    'fr-FR': {translation: fr},
+    [Languages.english]: {translation: en},
+    [Languages.french]: {translation: fr},
   },
   lng: getDeviceLanguage(),
   fallbackLng: Languages.english.toString(),

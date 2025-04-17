@@ -10,7 +10,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {formatDate} from '../../../utils/dateTimeUtil';
 import AssetUtil from '../../../utils/assetUtils';
 
-type Props = NativeStackScreenProps<RootStackParamList, Routes.NEWS_DETAILS>;
+type Props = NativeStackScreenProps<RootStackParamList, Routes.NewsDetails>;
 
 function NewsDetailsScreen({route, navigation}: Props): React.JSX.Element {
   const newsItem = route.params as NewsItem;

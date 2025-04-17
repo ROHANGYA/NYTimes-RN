@@ -7,28 +7,28 @@ import {NewsItem} from '../../domain/entities/news';
 import SearchScreen from '../screens/search/searchScreen';
 
 export type RootStackParamList = {
-  Home: undefined;
-  NewsDetails: NewsItem | undefined;
-  SearchNews: undefined;
+  [Routes.Home]: undefined;
+  [Routes.NewsDetails]: NewsItem | undefined;
+  [Routes.SearchNews]: undefined;
 };
 
 export default function AppNavigation(): React.JSX.Element {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={Routes.HOME}>
+      <Stack.Navigator initialRouteName={Routes.Home}>
         <Stack.Screen
-          name={Routes.HOME}
+          name={Routes.Home}
           component={HomeScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name={Routes.NEWS_DETAILS}
+          name={Routes.NewsDetails}
           component={NewsDetailsScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name={Routes.SEARCH_NEWS}
+          name={Routes.SearchNews}
           component={SearchScreen}
           options={{headerShown: false}}
         />

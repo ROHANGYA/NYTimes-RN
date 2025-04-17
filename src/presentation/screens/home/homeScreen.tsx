@@ -45,11 +45,11 @@ function HomeScreen(): React.JSX.Element {
   }
 
   function onNewsClick(newsItem: NewsItem) {
-    navigation.dispatch(StackActions.push(Routes.NEWS_DETAILS, newsItem));
+    navigation.dispatch(StackActions.push(Routes.NewsDetails, newsItem));
   }
 
   function onSearchClick() {
-    navigation.dispatch(StackActions.push(Routes.SEARCH_NEWS));
+    navigation.dispatch(StackActions.push(Routes.SearchNews));
   }
 
   function setNewsCategory(category: NewsCategories) {
