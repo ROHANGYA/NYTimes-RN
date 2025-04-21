@@ -20,7 +20,7 @@ Node: v22.14.0
   - Presentation
   - Domain -> Use-Case
   - Data -> Local DB / API (Axios)
-- Redux Toolkit
+- Redux Toolkit / Zustand (different branches)
 - Dependency Injection
 - React Native Paper (Material)
 - React Navigation
