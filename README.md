@@ -2,6 +2,8 @@
 
 A sample React native app made with best practices.
 
+Note: Some experimentation has been done in the state management hence why there are different approaches in this repo
+
 Versions used:
 react-native: 0.78.1
 Node: v22.14.0
