@@ -1,25 +1,27 @@
-import {StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import NewsSearchBar from '../../components/newsSearchBar';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {IconButton} from 'react-native-paper';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Routes} from '../../navigation/routes';
 import {RootStackParamList} from '../../navigation/navigation';
-
-import {useEffect, useRef} from 'react';
+import {StackActions} from '@react-navigation/native';
+import {useEffect} from 'react';
 import NoInternetBanner from '../../components/noInternetBanner';
+import NewsCard from '../../components/newsCard';
+import NoResultsFound from './noResultsFound';
+import SearchListBody from './searchListBody';
+import SearchListFooter from './searchListFooter';
+import {useSearchState} from '../../state/search/searchState';
 
 type NavProps = NativeStackScreenProps<RootStackParamList, Routes.SearchNews>;
 
 function SearchScreen({route, navigation}: NavProps): React.JSX.Element {
-  const searchQuery = useRef<string>('');
-  const page = useRef<number>(0);
+  const state = useSearchState();
 
   useEffect(() => {
-    callApi();
+    state.loadCurrentPage();
   }, []);
-
-  function callApi() {}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,29 +32,28 @@ function SearchScreen({route, navigation}: NavProps): React.JSX.Element {
           iconColor={'#000000'}
           size={29}
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => {
+            navigation.goBack();
+          }}
         />
         <View style={styles.searchBar}>
           <NewsSearchBar
             autoFocus={true}
             onSubmit={(searchInput: string) => {
-              searchQuery.current = searchInput;
-              page.current = 0;
-              callApi();
+              state.updateSearchQuery(searchInput);
             }}
           />
         </View>
       </View>
-      {/* <SearchListBody
-        isLoading={true}
-        error={searchState.firstPageError}
-        onRetryClick={callApi}>
+      <SearchListBody
+        isLoading={state.firstLoading}
+        error={state.firstPageError}
+        onRetryClick={state.refreshScreen}>
         <FlatList
-          data={searchState.data}
+          data={state.data}
           keyExtractor={(item, index) => index.toString()}
           onRefresh={() => {
-            page.current = 0;
-            callApi();
+            state.loadNextPage();
           }}
           refreshing={false}
           style={styles.mainList}
@@ -62,7 +63,7 @@ function SearchScreen({route, navigation}: NavProps): React.JSX.Element {
               isExpanded={false}
               onClick={() => {
                 navigation.dispatch(
-                  StackActions.push(Routes.NEWS_DETAILS, item),
+                  StackActions.push(Routes.NewsDetails, item),
                 );
               }}
             />
@@ -73,25 +74,24 @@ function SearchScreen({route, navigation}: NavProps): React.JSX.Element {
           ListEmptyComponent={<NoResultsFound />}
           ListFooterComponent={
             <SearchListFooter
-              isLastPage={searchState.isLastPage}
-              nextPageError={searchState.nextPageError}
-              onRetryClick={callApi}
+              isLastPage={state.isLastPage}
+              nextPageError={state.nextPageError}
+              onRetryClick={state.refreshNextPage}
             />
           }
           onEndReachedThreshold={0.1}
           onEndReached={(info: {distanceFromEnd: number}) => {
             if (info.distanceFromEnd < 0) return;
             if (
-              !searchState.nextPageLoadng &&
-              !searchState.nextPageError &&
-              !searchState.isLastPage
+              !state.nextPageLoadng &&
+              !state.nextPageError &&
+              !state.isLastPage
             ) {
-              page.current = page.current + 1;
-              callApi();
+              state.loadNextPage();
             }
           }}
         />
-      </SearchListBody> */}
+      </SearchListBody>
     </SafeAreaView>
   );
 }
