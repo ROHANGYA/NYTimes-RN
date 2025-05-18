@@ -16,4 +16,10 @@ enum NewsCategories {
   world = 'world',
 }
 
+export function getDbPtypeColumn(): string {
+  return Object.entries(NewsCategories)
+    .map((value, index) => `'${value[0]}'`)
+    .join(',');
+}
+
 export default NewsCategories;
