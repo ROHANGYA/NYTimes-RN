@@ -19,18 +19,20 @@ import MostViewedSection from './mostViewedSection';
 import {useMostViewedState} from '../../state/home/mostViewedState';
 import {useOfInterestState} from '../../state/home/ofInterestState';
 import OfInterestSection from './ofInterestSection';
+import {useNetInfo} from '@react-native-community/netinfo';
 
 function HomeScreen(): React.JSX.Element {
   const loadMostViewedSection = useMostViewedState(state => state.loadData);
   const loadOfinterestSection = useOfInterestState(state => state.loadData);
   const navigation = useNavigation();
+  const {type, isConnected} = useNetInfo();
 
   useEffect(() => {
     loadData();
   }, []);
 
   function loadData() {
-    loadMostViewedSection();
+    loadMostViewedSection(isConnected === false);
     loadOfinterestSection();
   }
 

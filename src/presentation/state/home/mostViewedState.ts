@@ -26,15 +26,17 @@ export type MostViewedState = {
 };
 
 export type MostViewedActions = {
-  loadData: () => void;
+  loadData: (isOffline: boolean) => void;
 };
 
 export const useMostViewedState = create<MostViewedState & MostViewedActions>(
   set => ({
     current: new Loading(),
-    loadData: async () => {
+    loadData: async (isOffline: boolean) => {
       set(state => ({current: new Loading()}));
-      const mostViewedResult = await di.getMostViewedNewsUseCase.call();
+      const mostViewedResult = await di.getMostViewedNewsUseCase.call(
+        isOffline,
+      );
       if (mostViewedResult instanceof FailureEntity) {
         set(state => ({current: new LoadingFailed(mostViewedResult)}));
       } else {

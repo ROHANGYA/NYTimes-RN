@@ -1,3 +1,5 @@
+import LocalDB from '../data/dataSources/local/database';
+import NewsDao from '../data/dataSources/local/newsDao';
 import apiClient from '../data/dataSources/remote/apiClient';
 import NewsApi from '../data/dataSources/remote/newsApi';
 import NewsRepositoryImpl from '../data/repository/newsRepositoryImpl';
@@ -8,6 +10,8 @@ import GetTopStoriesByCatgoryUseCase from '../domain/useCases/getTopStoriesByCat
 
 class AppModule {
   newsApi: NewsApi;
+  newsDb: NewsDao;
+  localDb: LocalDB;
   newsRepository: NewsRepositoryImpl;
   getMostViewedNewsUseCase: GetMostViewedNewsUseCase;
   getTopStoriesByCategoryUseCase: GetTopStoriesByCatgoryUseCase;
@@ -16,9 +20,11 @@ class AppModule {
   constructor() {
     // Initialize data sources
     this.newsApi = new NewsApi(apiClient);
+    this.localDb = new LocalDB();
+    this.newsDb = new NewsDao(this.localDb);
 
     // Initialize repositories
-    this.newsRepository = new NewsRepositoryImpl(this.newsApi);
+    this.newsRepository = new NewsRepositoryImpl(this.newsApi, this.newsDb);
 
     // Initialize use cases
     this.getMostViewedNewsUseCase = new GetMostViewedNewsUseCase(

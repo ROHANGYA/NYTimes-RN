@@ -1,4 +1,4 @@
-import {API_KEY, API_URL} from '@env';
+import {API_URL} from '@env';
 import axios, {
   AxiosError,
   AxiosInstance,
@@ -12,7 +12,11 @@ const apiClient: AxiosInstance = axios.create({
 
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-    config.params = {...config.params, 'api-key': API_KEY};
+    (config.headers['Cache-Control'] = 'no-cache'),
+      (config.params = {
+        ...config.params,
+        'api-key': '',
+      });
     return config;
   },
   (error: AxiosError): Promise<AxiosError> => {

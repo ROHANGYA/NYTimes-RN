@@ -5,8 +5,10 @@ import {NewsRepository} from '../repository/newsRepository';
 class GetMostViewedNewsUseCase {
   constructor(private repository: NewsRepository) {}
 
-  async call(): Promise<NewsItem[] | FailureEntity> {
-    return await this.repository.getMostViewedNews();
+  async call(isOffline: boolean = false): Promise<NewsItem[] | FailureEntity> {
+    return isOffline
+      ? await this.repository.getMostViewedNewsFromLocal()
+      : await this.repository.getMostViewedNews();
   }
 }
 

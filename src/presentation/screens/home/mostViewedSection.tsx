@@ -12,6 +12,7 @@ import {
 } from '../../state/home/mostViewedState';
 import GenericLoadingScreen from '../../components/genericLoadingScreen';
 import GenericErrorScreen from '../../components/genericErrorScreen';
+import {useNetInfo} from '@react-native-community/netinfo';
 
 type MostViewedSectionProps = {
   onNewsClick: (newsItem: NewsItem) => void;
@@ -20,6 +21,7 @@ type MostViewedSectionProps = {
 function MostViewedSection(props: MostViewedSectionProps): React.JSX.Element {
   const strings = useLocalization();
   const state = useMostViewedState();
+  const {type, isConnected} = useNetInfo();
 
   if (state.current instanceof Loading) {
     return scaffold(
@@ -35,7 +37,7 @@ function MostViewedSection(props: MostViewedSectionProps): React.JSX.Element {
       <View style={styles.errorContainer}>
         <GenericErrorScreen
           failure={error}
-          OnRetryClick={() => state.loadData()}
+          OnRetryClick={() => state.loadData(isConnected === false)}
         />
       </View>,
     );

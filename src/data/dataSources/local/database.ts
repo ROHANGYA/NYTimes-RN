@@ -1,23 +1,19 @@
 import SQLite, {SQLiteDatabase} from 'react-native-sqlite-storage';
 import {migrations} from './migrations';
-import {getDbPtypeColumn} from '../../../domain/entities/enums/newsCategories';
 
 class LocalDB {
-  db: SQLiteDatabase;
+  db!: SQLiteDatabase;
 
-  constructor() {
-    // Enable promise-based API for SQLite
-    SQLite.enablePromise(true);
-
-    // Open or create a database
-    this.db = SQLite.openDatabase(
-      {
-        name: 'NewsDB',
+  async openDatabase() {
+    try {
+      this.db = await SQLite.openDatabase({
+        name: 'News.db',
         location: 'default', // Ensures the database is saved locally
-      },
-      () => console.log('Database opened successfully'),
-      error => console.log('Error opening database: ', error),
-    );
+      });
+      console.log('Database opened successfully !');
+    } catch (err) {
+      console.log('Could not open Database !');
+    }
   }
 
   closeDatabase(): void {
@@ -29,6 +25,12 @@ class LocalDB {
   }
 
   async initialiseDatabase() {
+    // Enable promise-based API for SQLite
+    SQLite.enablePromise(true);
+
+    // Open or create a database
+    await this.openDatabase();
+
     // Versioning
     await this.db.executeSql(
       'CREATE TABLE IF NOT EXISTS Version (key TEXT PRIMARY KEY, value TEXT);',
@@ -43,9 +45,9 @@ class LocalDB {
       id INTEGER PRIMARY KEY, 
       title TEXT, 
       abstract TEXT, 
-      date TEXT, 
-      imageUrl TEXT, 
-      category TEXT CHECK( pType IN (${getDbPtypeColumn}) NULL DEFAULT NULL)
+      published_date TEXT, 
+      image BLOB, 
+      category TEXT CHECK(category  IN ('arts','automobiles','business')) DEFAULT NULL
       );`,
     );
   }
